@@ -1,6 +1,7 @@
 package Logica;
 
 import Logica.dados.*;
+import java.util.ArrayList;
 
 public class Jogo {
 
@@ -89,6 +90,11 @@ public class Jogo {
     
     public Log getLog() {
         return log;
+    }
+    
+    public ArrayList<String> getFullLog(){
+        return log.getFullLog();
+        
     }
     
     public boolean getWasPlanet() {

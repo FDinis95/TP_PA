@@ -2,6 +2,7 @@ package UI.Texto;
 
 import Logica.*;
 import Logica.estados.*;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Interface {
@@ -15,7 +16,7 @@ public class Interface {
         
     }
     
-    public void menuInicial(){
+    public void menuInicial() throws IOException{
         
         while(!(ob.getEstado() instanceof WaitGameOver)){
             
@@ -346,7 +347,7 @@ public class Interface {
         
     }
 
-    private void UserInputGameOver(){
+    private void UserInputGameOver() throws IOException{
         
 //        System.out.println(" ------ WaitGameOverPhase Begin! ------ \n\n");
         int choice = 0;
@@ -364,6 +365,7 @@ public class Interface {
                 break;
                 
             case 2:
+                EscreverFicheiro logging = new EscreverFicheiro(ob.getJogo());
                 System.exit(0);
         }
 //        System.out.println(" ------ WaitGameOverPhase End! ------ \n\n");
