@@ -18,7 +18,7 @@ public class WaitEvent extends StateAdapter {
         getJogo().setEvento(FabricaEventos.criaEvento(valor));
         getJogo().getEvento().applyEvent(getJogo());
         
-        getJogo().getLog().addLog("Evento: " + getJogo().getEvento());
+        getJogo().getLog().addLog("Evento gerado aleatoriamente: " + getJogo().getEvento());
         getJogo().getLog().addLog("\n" + getJogo().getSpaceShip());
         
         if((getJogo().getSpaceShip().getFuelStorage() == 0) || 
@@ -40,5 +40,36 @@ public class WaitEvent extends StateAdapter {
             
             return new WaitMove(getJogo()); 
         }
+    }
+    
+    @Override
+    public Estado rollD6(int id){
+        
+        getJogo().setEvento(FabricaEventos.criaEvento(id));
+        getJogo().getEvento().applyEvent(getJogo());
+        
+        getJogo().getLog().addLog("Evento gerado pelo utilizador: " + getJogo().getEvento());
+        getJogo().getLog().addLog("\n" + getJogo().getSpaceShip());
+        
+        if((getJogo().getSpaceShip().getFuelStorage() == 0) || (getJogo().getSpaceShip().getCrewMembers().isEmpty())){
+            
+//Retorna para o WaitGameOver
+            getJogo().setGameOver();
+            getJogo().getLog().addLog("\nPerdeste!");
+                
+            getJogo().getLog().printLogs();
+            getJogo().getLog().clearLog();
+            
+            return new WaitGameOver(getJogo());
+            
+        }else{
+            //Retorna para o WaitMove
+            getJogo().setWasPlanet(false);
+            getJogo().getLog().printLogs();
+            getJogo().getLog().clearLog();
+            
+            return new WaitMove(getJogo()); 
+        }
+        
     }
 }

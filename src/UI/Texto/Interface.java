@@ -83,9 +83,44 @@ public class Interface {
     
     private void UserInputWaitMove(){
         
+        int choice = 0;
+        int moveType = 0;
+        int sectorType = 0;
+        int planetType = 0;
+        
 //        System.out.println(" ------ WaitMovePhase Begin! ------ \n\n");
-   
-        ob.move();
+        do{
+            System.out.println("Entrar em?");
+            System.out.println("1 - Modo Automatico\n2 - Modo manual");
+            System.out.print(">> ");
+            choice = scanner.nextInt();
+            
+        }while(choice != 1 && choice != 2);
+        
+        switch(choice){
+            case 1:
+                ob.move();
+                break;
+            
+            case 2:
+                System.out.println("Definir o tipo de movimento");
+                System.out.println("1 - Normal\n2 - Buraco Negro");
+                System.out.println(">> ");
+                moveType = scanner.nextInt();
+                
+                System.out.println("Definir o tipo de sector");
+                System.out.println("1 - Branco\n2 - Vermelho");
+                System.out.println(">> ");
+                sectorType = scanner.nextInt();
+                
+                System.out.println("Definir o tipo de Planeta");
+                System.out.println("1 - Planeta Verde\n2 - Planeta Preto\n3 - Planeta Vermelho\n4 - PlanetaAzul");
+                System.out.println(">> ");
+                planetType = scanner.nextInt();
+                
+                ob.move(moveType, sectorType, planetType);
+                
+        }
 
 //        System.out.println(" ------ WaitMovePhase End! ------ \n\n");
         
@@ -94,8 +129,34 @@ public class Interface {
     private void UserInputWaitEvent(){
         
 //        System.out.println(" ------ WaitEvent Begin! ------ \n");
+        int choice = 0;
         
-        ob.rollD6();
+        do{
+            System.out.println("Escolha uma das seguintes opcoes!");
+            System.out.println("1 - Escolher Evento ao calhas");
+            System.out.println("2 - Escolher Evento por ID");
+            System.out.print(">> ");
+            
+            choice = scanner.nextInt();
+            
+        }while(choice != 1 && choice != 2);
+        
+        switch(choice){
+            case 1:
+                ob.rollD6();
+                break;
+                
+            case 2:
+                do{
+                    System.out.println("Digite um numero de 1 a 6");
+                    System.out.print(">> ");
+                    
+                    choice = scanner.nextInt();
+                    
+                }while(choice < 1 && choice > 6);                
+                
+                ob.rollD6(choice);
+        }
 
 //        System.out.println(" ------ WaitEvent End! ------ \n");
     }
@@ -150,11 +211,11 @@ public class Interface {
                     } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
                     if(choice == 3){
                         System.out.println("Diga o nome do Recurso que pretende usar para a troca");
-                        System.out.println(">> ");
+                        System.out.print(">> ");
                         from = scanner.next();
                         
                         System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
-                        System.out.println(">> ");
+                        System.out.print(">> ");
                         to = scanner.next();
                         
                     }
@@ -210,11 +271,11 @@ public class Interface {
                     } while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
                     if(choice == 3){
                         System.out.println("Diga o nome do Recurso que pretende usar para a troca");
-                        System.out.println(">> ");
+                        System.out.print(">> ");
                         from = scanner.next();
                         
                         System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
-                        System.out.println(">> ");
+                        System.out.print(">> ");
                         to = scanner.next();
                         
                     }
@@ -264,11 +325,11 @@ public class Interface {
         
         if (choice == 2) {
             System.out.println("Diga o nome do Recurso que pretende usar para a troca");
-            System.out.println(">> ");
+            System.out.print(">> ");
             from = scanner.next();
 
             System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
-            System.out.println(">> ");
+            System.out.print(">> ");
             to = scanner.next();
 
         }
@@ -319,7 +380,8 @@ public class Interface {
             System.out.println("InitialDroneX: " + ob.getJogo().getInitialDroneX() + "\nInitialDroneY: " + ob.getJogo().getInitialDroneY());
             
             if((ob.getJogo().getPlaneta().getTerreno().getDrone().getPosX() == ob.getJogo().getInitialDroneX()) &&
-                (ob.getJogo().getPlaneta().getTerreno().getDrone().getPosY() == ob.getJogo().getInitialDroneY()))
+                (ob.getJogo().getPlaneta().getTerreno().getDrone().getPosY() == ob.getJogo().getInitialDroneY()) &&
+                    ob.getJogo().getPlaneta().getTerreno().getResource() != null)
             {
                 ob.hasResource();
             }

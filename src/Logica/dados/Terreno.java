@@ -44,6 +44,10 @@ public class Terreno extends Celula {
     public Object[][] getTerreno(){
         return terreno;
     }
+    
+    public void clearBoard(){
+        this.terreno = new Object[7][7];
+    }
         
     public Object getEntity(Object o){
         
@@ -150,7 +154,6 @@ public class Terreno extends Celula {
         moveAlien();
 
     }
-    
         
     public int[] checkBestCourse() {
 

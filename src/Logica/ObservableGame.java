@@ -78,8 +78,18 @@ public class ObservableGame {
         
     }
     
+    public void move(int move, int sector, int planet){
+        setEstado(getEstado().move(move, sector, planet));
+        
+    }
+    
     public void rollD6(){
         setEstado(getEstado().rollD6());
+        
+    }
+    
+    public void rollD6(int id){
+        setEstado(getEstado().rollD6(id));
         
     }
     

@@ -38,7 +38,7 @@ public abstract class Planet {
     
     public Resource searchResource(Resource r){
         for (Resource rs : recursos) {
-            if (rs.equals(r)) {
+            if (rs.getTipo().equals(r.getTipo())) {
                 return rs;
             }
         }       
@@ -49,10 +49,7 @@ public abstract class Planet {
         
         Resource temp = searchResource(r);
         if(temp != null)
-            recursos.remove(temp);
-        else
-            System.out.println("Nao encontrei");
-        
+            recursos.remove(temp);        
     }
 
     public ArrayList<Resource> getRecursos() {

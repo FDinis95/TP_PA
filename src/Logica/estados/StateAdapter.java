@@ -32,6 +32,11 @@ public class StateAdapter implements Estado {
         return this;
         
     }
+    
+    @Override
+    public Estado move(int move, int sector, int planet){
+        return this;
+    }
 
     @Override
     public Estado nextTurn() {
@@ -101,6 +106,12 @@ public class StateAdapter implements Estado {
     
     @Override
     public Estado rollD6() {
+        return this;
+        
+    }
+    
+    @Override
+    public Estado rollD6(int id) {
         return this;
         
     }

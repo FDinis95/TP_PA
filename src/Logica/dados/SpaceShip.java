@@ -38,10 +38,10 @@ public class SpaceShip {
         };
         this.cargo = new LinkedHashMap<Resource, Integer>(){
             {
-                put(new ResourceAzul(), 5);
-                put(new ResourcePreto(), 5);
-                put(new ResourceVerde(), 5);
-                put(new ResourceVermelho(), 5);
+                put(new ResourceAzul(), 0);
+                put(new ResourcePreto(), 0);
+                put(new ResourceVerde(), 0);
+                put(new ResourceVermelho(), 0);
             }
         };
         

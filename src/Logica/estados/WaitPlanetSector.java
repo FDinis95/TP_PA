@@ -71,16 +71,24 @@ public class WaitPlanetSector extends StateAdapter {
             return new WaitPlanetSector(getJogo());
    
         }else {
-
+            
+            getJogo().getPlaneta().getTerreno().clearBoard();
+            
             int alienChoice = (int) (Math.random() * 4) + 1;
-            int recursoChoice = (int) (Math.random() * getJogo().getPlaneta().getRecursos().size()) + 1;
+            int recursoChoice = (int) (Math.random() * getJogo().getPlaneta().getRecursos().size()) + 0;
 
             //Criação do Alien
             Alien a = FabricaAliens.criaAlien(alienChoice);
             getJogo().getPlaneta().getTerreno().setAlienAttacker(a);
 
+            Resource r = null;
             //Criação do Recurso a partir dos que existem no planeta
-            Resource r = FabricaResources.criaResource(recursoChoice);
+            for(int i = 0; i < getJogo().getPlaneta().getRecursos().size(); i++){
+                if(i == recursoChoice)
+                    r = FabricaResources.criaResource(getJogo().getPlaneta().getRecursos().get(i));
+            }
+            
+//            Resource r = FabricaResources.criaResource(recursoChoice);
             getJogo().getPlaneta().getTerreno().setResource(r);
             
             //Mete o Drone no Planeta
@@ -93,8 +101,10 @@ public class WaitPlanetSector extends StateAdapter {
             //Para saber o caminho de volta
             getJogo().setInitialDroneX(getJogo().getPlaneta().getTerreno().getDrone().getPosX());
             getJogo().setInitialDroneY(getJogo().getPlaneta().getTerreno().getDrone().getPosY());
+            getJogo().getSpaceShip().addVisit();
             
             getJogo().getLog().addLog("" + getJogo().getPlaneta().getTerreno());
+            getJogo().getLog().addLog("" + getJogo().getPlaneta());
             getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
 

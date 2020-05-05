@@ -10,6 +10,45 @@ public class WaitMove extends StateAdapter {
         super(jogo);
 
     }
+    
+    @Override
+    public Estado move(int move, int sector, int planet){
+        
+        if (sector <= 3){
+            getJogo().getLog().addLog("Planeta com SpaceStation!");
+            getJogo().setPlaneta(FabricaPlanetas.criaPlaneta(planet));
+            getJogo().getPlaneta().setSS(getJogo().getSpaceShip());
+            getJogo().getPlaneta().setSpaceStation(new SpaceStation());
+            getJogo().setSpaceStation(getJogo().getPlaneta().getSpaceStation());
+        
+        }else{
+            getJogo().getLog().addLog("Planeta sem SpaceStation!");
+            getJogo().setPlaneta(FabricaPlanetas.criaPlaneta(planet));
+            getJogo().getPlaneta().setSS(getJogo().getSpaceShip());
+            getJogo().setSpaceStation(null);
+            
+        }
+        
+        getJogo().setWasPlanet(true);
+        getJogo().getLog().addLog("Resultado final:");
+        
+        if(move == 1){
+            getJogo().getLog().addLog("Tipo de Movimento: Normal");
+        }else
+            getJogo().getLog().addLog("Tipo de Movimento: Buraco Negro");
+        
+        if(sector == 1){
+            getJogo().getLog().addLog("Tipo de Sector: Branco");
+        }else
+            getJogo().getLog().addLog("Tipo de Sector: Vermelho");
+        
+        getJogo().getLog().addLog("Tipo de Planeta: " + getJogo().getPlaneta().getTipo());
+
+        getJogo().getLog().printLogs();
+        getJogo().getLog().clearLog();
+        
+        return new WaitPlanetSector(getJogo());
+    }
 
     @Override
     public Estado move() {
@@ -46,7 +85,7 @@ public class WaitMove extends StateAdapter {
 
                 return new WaitEvent(getJogo());
 
-            } else {
+            } else { //Não foi um planeta antes
                 sectorType = (int) (Math.random() * 10) + 1; //Tipo de sector
                 
                 if (sectorType <= 3) { //Planeta Com SpaceStation

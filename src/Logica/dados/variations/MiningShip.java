@@ -46,20 +46,20 @@ public class MiningShip extends SpaceShip {
     @Override
     public void addCargo(Resource r, int value){
      
-        if(getUpgradeLevel() == 0 && getSpecificCargoValue(r) + value >=  6)
-            getCargo().put(r, 6);
+        if(getUpgradeLevel() == 0 && (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value) >=  6)
+            getCargo().replace(getSpecificCargo(r.getTipo()), 6);
         
-        else if(getUpgradeLevel() == 1 && getSpecificCargoValue(r) + value >=  12)
-            getCargo().put(r, 12);
+        else if(getUpgradeLevel() == 1 && (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value) >=  12)
+            getCargo().replace(getSpecificCargo(r.getTipo()), 12);
         
-        else if(getUpgradeLevel() == 2 && getSpecificCargoValue(r) + value >=  18)
-            getCargo().put(r, 18);
+        else if(getUpgradeLevel() == 2 && (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value) >=  18)
+            getCargo().replace(getSpecificCargo(r.getTipo()), 18);
         
-        else if(getUpgradeLevel() == 3 && getSpecificCargoValue(r) + value >=  24)
-            getCargo().put(r, 24);
+        else if(getUpgradeLevel() == 3 && (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value) >=  24)
+            getCargo().replace(getSpecificCargo(r.getTipo()), 24);
         
         else
-            getCargo().put(r, getSpecificCargoValue(r) + value);
+            getCargo().replace(getSpecificCargo(r.getTipo()), (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value));
     }
     
     @Override

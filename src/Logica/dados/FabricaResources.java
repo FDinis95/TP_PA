@@ -28,4 +28,26 @@ public class FabricaResources {
         }
     }
     
+    public static Resource criaResource(Resource r){
+        
+        if(r instanceof ResourceVerde){
+            return new ResourceVerde();
+            
+        }else if(r instanceof ResourcePreto){
+            return new ResourcePreto();
+            
+        }else if(r instanceof ResourceVermelho){
+            return new ResourceVermelho();
+            
+        }else if(r instanceof ResourceAzul){
+            return new ResourceAzul();
+            
+        }else if(r instanceof ResourceRoxo){
+            return new ResourceRoxo();
+            
+        }
+        
+        return null;
+    }
+    
 }

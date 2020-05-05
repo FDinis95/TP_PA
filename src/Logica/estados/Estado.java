@@ -10,6 +10,7 @@ public interface Estado {
     
     //WaitMove
     Estado move();
+    Estado move(int move, int sector, int planet);
     
     //WaitPlanetSector
     Estado useRecursos(int valor, String from, String to);
@@ -32,6 +33,7 @@ public interface Estado {
     
     //WaitEvent
     Estado rollD6();
+    Estado rollD6(int id);
     
     //WaitGameOver
     Estado end();

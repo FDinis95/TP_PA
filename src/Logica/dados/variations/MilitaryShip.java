@@ -39,14 +39,14 @@ public class MilitaryShip extends SpaceShip {
     @Override
     public void addCargo(Resource r, int value){
      
-        if(getUpgradeLevel() == 0 && getSpecificCargoValue(r) + value >=  6)
-            getCargo().put(r, 6);
+        if(getUpgradeLevel() == 0 && (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value) >=  6)
+            getCargo().replace(getSpecificCargo(r.getTipo()), 6);
         
-        else if(getUpgradeLevel() == 1 && getSpecificCargoValue(r) + value >=  12)
-            getCargo().put(r, 12);
+        else if(getUpgradeLevel() == 1 && (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value) >=  12)
+            getCargo().replace(getSpecificCargo(r.getTipo()), 12);
         
         else
-            getCargo().put(r, getSpecificCargoValue(r) + value);
+            getCargo().replace(getSpecificCargo(r.getTipo()), (getSpecificCargoValue(getSpecificCargo(r.getTipo())) + value));
 
     }
     
