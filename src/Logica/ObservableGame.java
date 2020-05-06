@@ -32,7 +32,7 @@ public class ObservableGame {
         setEstado(getEstado().alienAttack());
         
     }
-    
+
     public void moveToResource(int moveX, int moveY){
         setEstado(getEstado().moveToResource(moveX, moveY));
         

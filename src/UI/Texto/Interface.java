@@ -38,9 +38,6 @@ public class Interface {
             }else if(ob.getEstado() instanceof WaitLanding){
                 UserInputWaitLanding();
                 
-            }else if(ob.getEstado() instanceof WaitAlienAttack){
-                UserInputWaitAlienAttack();
-                
             }else if(ob.getEstado() instanceof WaitSpaceStation){
                 UserInputWaitSpaceStation();
                 
@@ -347,66 +344,49 @@ public class Interface {
     private void UserInputWaitLanding() {
 
 //        System.out.println(" ------ WaitLandingPhase Begin! ------ \n\n");
+        do {
+            if (ob.getJogo().getPlaneta().getTerreno().checkFight()) {
+                while (!ob.getJogo().getFightOver()) {
+                    ob.alienAttack();
 
-        do{
-
-            while(ob.getJogo().getPlaneta().getTerreno().checkFight()){
-                ob.alienAttack();
-                
+                }
             }
-            
-            
-            System.out.println("Escolha uma das direcoes:");
-            System.out.println("1 - ^\n2 - v\n3 - >\n4 - < ");
-            System.out.print(">> ");
 
-            switch (scanner.nextInt()) {
-                case 1:
-                    ob.moveToResource(-1, 0);
-                    break;
-                case 2:
-                    ob.moveToResource(1, 0);
-                    break;
-                case 3:
-                    ob.moveToResource(0, 1);
-                    break;
-                default:
-                    ob.moveToResource(0, -1);
-                    break;
+            if (ob.getJogo().getSpaceShip().getDrone() != null) {
+                System.out.println("Escolha uma das direcoes:");
+                System.out.println("1 - ^\n2 - v\n3 - >\n4 - < ");
+                System.out.print(">> ");
 
+                switch (scanner.nextInt()) {
+                    case 1:
+                        ob.moveToResource(-1, 0);
+                        break;
+                    case 2:
+                        ob.moveToResource(1, 0);
+                        break;
+                    case 3:
+                        ob.moveToResource(0, 1);
+                        break;
+                    default:
+                        ob.moveToResource(0, -1);
+                        break;
+
+                }
+
+                System.out.println(ob.getJogo().getPlaneta().getTerreno());
+                System.out.println("InitialDroneX: " + ob.getJogo().getInitialDroneX() + "\nInitialDroneY: " + ob.getJogo().getInitialDroneY());
+
+                if ((ob.getJogo().getPlaneta().getTerreno().getDrone().getPosX() == ob.getJogo().getInitialDroneX())
+                        && (ob.getJogo().getPlaneta().getTerreno().getDrone().getPosY() == ob.getJogo().getInitialDroneY())
+                        && ob.getJogo().getPlaneta().getTerreno().getDrone().getRes() != null) {
+                    ob.hasResource();
+                }
+            } else {
+                break;
             }
-  
-            System.out.println(ob.getJogo().getPlaneta().getTerreno());
-            System.out.println("InitialDroneX: " + ob.getJogo().getInitialDroneX() + "\nInitialDroneY: " + ob.getJogo().getInitialDroneY());
-            
-            if((ob.getJogo().getPlaneta().getTerreno().getDrone().getPosX() == ob.getJogo().getInitialDroneX()) &&
-                (ob.getJogo().getPlaneta().getTerreno().getDrone().getPosY() == ob.getJogo().getInitialDroneY()) &&
-                    ob.getJogo().getPlaneta().getTerreno().getResource() != null)
-            {
-                ob.hasResource();
-            }
-            
-        }while ((ob.getJogo().getPlaneta().getTerreno().getDrone().getRes() == null));
-        
+        } while ((ob.getJogo().getPlaneta().getTerreno().getDrone().getRes() == null));
+
 //        System.out.println(" ------ WaitLandingPhase End! ------ \n\n");
-
-    }
-
-    private void UserInputWaitAlienAttack(){
-        
-//        System.out.println(" ------ WaitAlienAttackPhase Begin! ------ \n\n");
-        
-        //Meramente ilustrativo para percebermos o que se passa no terreno.
-        while(!ob.getJogo().getFightOver()){
-            System.out.println("Prima uma tecla para andar com a luta para a frente!");            
-            ob.alienAttack();
-            
-            scanner.next();
-            
-        }
-        
-        System.out.println(" ------ WaitAlienAttackPhase End! ------ \n\n");
-        
     }
 
     private void UserInputGameOver() throws IOException{
