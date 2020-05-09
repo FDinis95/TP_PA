@@ -39,4 +39,12 @@ public class Log {
         }
     }
     
+    public void requestLog(){
+        
+        for(String s : fullLog){
+            System.out.println(s);
+        }
+        
+    }
+    
 }

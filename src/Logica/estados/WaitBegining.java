@@ -16,8 +16,7 @@ public class WaitBegining extends StateAdapter {
         //Cria recursos do jogo
         getJogo().initializeSetup();
         
-        getJogo().getLog().addLog("Recursos Inicializados\n");
-        getJogo().getLog().printLogs();
+        getJogo().getLog().addLog("----- Inicio do Log -----\n\nRecursos Inicializados\n");
         getJogo().getLog().clearLog();
         
         return new WaitShipSelection(getJogo());

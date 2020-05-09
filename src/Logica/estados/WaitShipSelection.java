@@ -14,7 +14,7 @@ public class WaitShipSelection extends StateAdapter {
     public Estado selectShip(int valor) {
         //Cria as cartas referentes à nave (Tipo, Fuel, Cargo)
         getJogo().setSpaceShip(FabricaSpaceShip.criaSpaceShip(valor));
-        getJogo().getLog().addLog("Starting ship: \n" + getJogo().getSpaceShip().toString());
+        getJogo().getLog().addLog("Starting ship: \n" + getJogo().getSpaceShip().toString() + "\n");
         getJogo().getLog().printLogs();
         getJogo().getLog().clearLog();
         

@@ -11,6 +11,7 @@ public class WaitMove extends StateAdapter {
 
     }
     
+    //Move Feito Manualmente!
     @Override
     public Estado move(int move, int sector, int planet){
         
@@ -43,8 +44,6 @@ public class WaitMove extends StateAdapter {
             getJogo().getLog().addLog("Tipo de Sector: Vermelho");
         
         getJogo().getLog().addLog("Tipo de Planeta: " + getJogo().getPlaneta().getTipo());
-
-        getJogo().getLog().printLogs();
         getJogo().getLog().clearLog();
         
         return new WaitPlanetSector(getJogo());
@@ -128,8 +127,7 @@ public class WaitMove extends StateAdapter {
                 
                 getJogo().setWasPlanet(true);
                 
-                getJogo().getLog().addLog("Resultado do tipo de sector: \n" + getJogo().getPlaneta());
-                getJogo().getLog().printLogs();
+                getJogo().getLog().addLog("Resultado do tipo de sector: \n" + getJogo().getPlaneta() + "\n");
                 getJogo().getLog().clearLog();
 
                 return new WaitPlanetSector(getJogo());
@@ -167,7 +165,6 @@ public class WaitMove extends StateAdapter {
                 getJogo().setWasPlanet(true);
                 
                 getJogo().getLog().addLog("Resultado do tipo de sector: \n" + getJogo().getPlaneta());
-                getJogo().getLog().printLogs();
                 getJogo().getLog().clearLog();
 
                 return new WaitPlanetSector(getJogo());

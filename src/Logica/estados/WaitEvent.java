@@ -15,6 +15,8 @@ public class WaitEvent extends StateAdapter {
         
         int valor = (int)(Math.random() * 6) + 1;
         
+        getJogo().getLog().addLog("\n----- INICIO EVENTO -----\n");
+        
         getJogo().setEvento(FabricaEventos.criaEvento(valor));
         getJogo().getEvento().applyEvent(getJogo());
         
@@ -23,25 +25,29 @@ public class WaitEvent extends StateAdapter {
         
         if((getJogo().getSpaceShip().getFuelStorage() == 0) || 
                 (getJogo().getSpaceShip().getCrewMembers().isEmpty())){
+            
             //Retorna para o WaitGameOver
             getJogo().setGameOver();
-            getJogo().getLog().addLog("\nPerdeste!");
+            getJogo().getLog().addLog("\nInfelizmente ficaste sem Capitao ou sem Fuel! Perdeste!");
                 
             getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
+            
+            getJogo().getLog().addLog("\n\n----- FIM EVENTO (GAMEOVER) -----\n\n");
             
             return new WaitGameOver(getJogo());
             
         }else{
             //Retorna para o WaitMove
             getJogo().setWasPlanet(false);
-            getJogo().getLog().printLogs();
+            getJogo().getLog().addLog("\n----- FIM EVENTO -----\n");
             getJogo().getLog().clearLog();
             
             return new WaitMove(getJogo()); 
         }
     }
     
+    //Feito manualmente
     @Override
     public Estado rollD6(int id){
         
@@ -53,19 +59,22 @@ public class WaitEvent extends StateAdapter {
         
         if((getJogo().getSpaceShip().getFuelStorage() == 0) || (getJogo().getSpaceShip().getCrewMembers().isEmpty())){
             
-//Retorna para o WaitGameOver
+            //Retorna para o WaitGameOver
             getJogo().setGameOver();
-            getJogo().getLog().addLog("\nPerdeste!");
+            getJogo().getLog().addLog("\nInfelizmente ficaste sem Capitao ou sem Fuel! Perdeste!");
+
                 
+            getJogo().getLog().addLog("\n\n----- FIM EVENTO (GAMEOVER) -----\n\n");
             getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
+            
             
             return new WaitGameOver(getJogo());
             
         }else{
             //Retorna para o WaitMove
             getJogo().setWasPlanet(false);
-            getJogo().getLog().printLogs();
+            getJogo().getLog().addLog("\n----- FIM EVENTO -----\n");
             getJogo().getLog().clearLog();
             
             return new WaitMove(getJogo()); 

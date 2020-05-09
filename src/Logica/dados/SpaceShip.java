@@ -201,6 +201,11 @@ public class SpaceShip {
         return artifact;
     }
     
+    public void setArtifacts(int artifacts){
+        this.artifact = artifacts;
+        
+    }
+    
     public void addArtifact(){
         artifact++;
     }

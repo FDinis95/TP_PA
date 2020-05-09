@@ -2,6 +2,7 @@ package UI.Texto;
 
 import Logica.*;
 import Logica.estados.*;
+import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -48,21 +49,16 @@ public class Interface {
     }
     
     private void UserInputWaitBeginning(){
-        
-//        System.out.println(" ------ WaitBeginningPhase Begin! ------ \n");
-        
+                
         ob.setup();
         
-//        System.out.println(" ------ WaitBeginningPhase End! ------ \n");
     }
     
     private void UserInputWaitShipSelection(){
-        
-//        System.out.println(" ------ WaitShipSelectionPhase Begin! ------ \n\n");
-        
+                
         int valor;        
         do {
-            System.out.println("Escolha o tipo de navio para o jogo!");
+            System.out.println("\nEscolha o tipo de navio para o jogo!");
             System.out.println("1 - Navio Militar");
             System.out.println("2 - Navio Mineiro");
             System.out.print(">> ");
@@ -74,7 +70,6 @@ public class Interface {
         } while (valor != 1 && valor != 2);
         
         ob.start(valor);
-//        System.out.println(" ------ WaitShipSelectionPhase End! ------ \n\n");
         
     }
     
@@ -85,9 +80,8 @@ public class Interface {
         int sectorType = 0;
         int planetType = 0;
         
-//        System.out.println(" ------ WaitMovePhase Begin! ------ \n\n");
         do{
-            System.out.println("Entrar em?");
+            System.out.println("\nEntrar em?");
             System.out.println("1 - Modo Automatico\n2 - Modo manual");
             System.out.print(">> ");
             choice = scanner.nextInt();
@@ -99,37 +93,43 @@ public class Interface {
                 ob.move();
                 break;
             
-            case 2:
-                System.out.println("Definir o tipo de movimento");
-                System.out.println("1 - Normal\n2 - Buraco Negro");
-                System.out.println(">> ");
-                moveType = scanner.nextInt();
-                
-                System.out.println("Definir o tipo de sector");
-                System.out.println("1 - Branco\n2 - Vermelho");
-                System.out.println(">> ");
-                sectorType = scanner.nextInt();
-                
-                System.out.println("Definir o tipo de Planeta");
-                System.out.println("1 - Planeta Verde\n2 - Planeta Preto\n3 - Planeta Vermelho\n4 - PlanetaAzul");
-                System.out.println(">> ");
-                planetType = scanner.nextInt();
+            case 2: //do while()
+                do {
+                    System.out.println("\nDefinir o tipo de movimento");
+                    System.out.println("1 - Normal\n2 - Buraco Negro");
+                    System.out.println(">> ");
+                    moveType = scanner.nextInt();
+                    
+                } while (moveType != 1 && moveType != 2);
+
+                do {
+                    System.out.println("\nDefinir o tipo de sector");
+                    System.out.println("1 - Branco\n2 - Vermelho");
+                    System.out.println(">> ");
+                    sectorType = scanner.nextInt();
+                    
+                } while (sectorType != 1 && sectorType != 2);
+
+                do {
+                    System.out.println("\nDefinir o tipo de Planeta");
+                    System.out.println("1 - Planeta Verde\n2 - Planeta Preto\n3 - Planeta Vermelho\n4 - Planeta Azul");
+                    System.out.println(">> ");
+                    planetType = scanner.nextInt();
+                    
+                } while (planetType != 1 && planetType != 2 && planetType != 3 && planetType != 4);
                 
                 ob.move(moveType, sectorType, planetType);
-                
-        }
 
-//        System.out.println(" ------ WaitMovePhase End! ------ \n\n");
+        }
         
     }
     
     private void UserInputWaitEvent(){
         
-//        System.out.println(" ------ WaitEvent Begin! ------ \n");
         int choice = 0;
         
         do{
-            System.out.println("Escolha uma das seguintes opcoes!");
+            System.out.println("\nEscolha uma das seguintes opcoes!");
             System.out.println("1 - Escolher Evento ao calhas");
             System.out.println("2 - Escolher Evento por ID");
             System.out.print(">> ");
@@ -145,7 +145,7 @@ public class Interface {
                 
             case 2:
                 do{
-                    System.out.println("Digite um numero de 1 a 6");
+                    System.out.println("\nDigite um numero de 1 a 6");
                     System.out.print(">> ");
                     
                     choice = scanner.nextInt();
@@ -155,35 +155,32 @@ public class Interface {
                 ob.rollD6(choice);
         }
 
-//        System.out.println(" ------ WaitEvent End! ------ \n");
     }
     
     private void UserInputWaitPlanetSector() {
-        
-//        System.out.println(" ------ WaitPlanetSectorPhase Begin! ------ \n\n");
-        
-        //Check spacestation == null para saber qual dos tipos de interface escolher
-        
+                
         int choice = 0;
         String from = " ", to = " ";
         
         System.out.println(ob.getJogo().getSpaceShip());
-        //Dar a opção de trocar recursos (se tiver o Cargo Officer), ir para a SpaceStation ou ir para o planeta
+        
         if (ob.getJogo().getPlaneta().getSpaceStation() == null) {
 
             do {
-                System.out.println("Escolha uma das seguintes opcoes!");
+                System.out.println("\nEscolha uma das seguintes opcoes!");
                 System.out.println("1 - Ir para o planeta");
                 System.out.println("2 - Converter Recursos");
-                System.out.println("3 - Next Turn");
+                System.out.println("3 - Requesitar Log");
+                System.out.println("4 - Artefactos a 5?");
+                System.out.println("5 - Next Turn");
                 System.out.print(">> ");
 
                 choice = scanner.nextInt();
-                if (choice <= 0 || choice >= 4) {
+                if (choice <= 0 || choice >= 6) {
                     System.out.println("Nao escolheu nenhuma opcao disponivel, volte a tentar\n");
                 }
 
-            } while (choice != 1 && choice != 2 && choice != 3);
+            } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
             
             switch (choice) {
                 case 1:
@@ -192,7 +189,7 @@ public class Interface {
                     
                 case 2:
                     do {
-                        System.out.println("Escolha uma das seguintes opcoes de conversao!");
+                        System.out.println("\nEscolha uma das seguintes opcoes de conversao!");
                         System.out.println("1 - Converter Recursos para Shield [Preto, Verde, Azul]");
                         System.out.println("2 - Converter Recursos para Fuel [Preto, Vermelho, Verde]");
                         System.out.println("3 - Converter Recursos para outro Recurso");
@@ -206,22 +203,41 @@ public class Interface {
                         }
 
                     } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
-                    if(choice == 3){
-                        System.out.println("Diga o nome do Recurso que pretende usar para a troca");
-                        System.out.print(">> ");
-                        from = scanner.next();
-                        
-                        System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
-                        System.out.print(">> ");
-                        to = scanner.next();
-                        
+                    
+                    if (choice == 3) {
+                        do {
+                            do {
+                                System.out.println("\nDiga o nome do Recurso que pretende usar para a troca");
+                                System.out.print(">> ");
+                                from = scanner.next();
+                                from = StringUtils.capitalize(from);
+                                
+                            } while (!(from.equals("Preto")) && !(from.equals("Vermelho")) && !(from.equals("Azul")) && !(from.equals("Verde")));
+
+                            do {
+                                System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
+                                System.out.print(">> ");
+                                to = scanner.next();
+                                to = StringUtils.capitalize(to);
+                                
+                            } while (!(from.equals("Preto")) && !(from.equals("Vermelho")) && !(from.equals("Azul")) && !(from.equals("Verde")));
+                            
+                        } while (from.equals(" ") && to.equals(" "));
                     }
                     
                     ob.useRecursos(choice, from, to);
                     break;
                     
                 case 3:
-                    ob.nextTurn();
+                    ob.getJogo().getLog().requestLog();
+                    break;
+                
+                case 4:
+                    ob.getJogo().getSpaceShip().setArtifacts(5);
+                    break;
+                    
+                case 5:
+                    ob.nextTurn();                  
                     break;
                     
                 default:
@@ -230,19 +246,21 @@ public class Interface {
             
         } else{
             do {
-                System.out.println("Escolha uma das seguintes opcoes!");
+                System.out.println("\nEscolha uma das seguintes opcoes!");
                 System.out.println("1 - Ir para o Planeta");
                 System.out.println("2 - Converter Recursos");
                 System.out.println("3 - Ir para a SpaceStation");
-                System.out.println("4 - Next Turn");
+                System.out.println("4 - Requesitar Log");
+                System.out.println("5 - Artifacts a 5?");
+                System.out.println("6 - Next Turn");
                 System.out.print(">> ");
 
                 choice = scanner.nextInt();
-                if (choice <= 0 || choice >= 5) {
+                if (choice <= 0 || choice >= 7) {
                     System.out.println("Nao escolheu nenhuma opcao disponivel, volte a tentar\n");
                 }
 
-            } while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
+            } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6);
             
             switch (choice) {
                 case 1:
@@ -252,7 +270,7 @@ public class Interface {
                 case 2:
                     
                     do {
-                        System.out.println("Escolha uma das seguintes opcoes de conversao!");
+                        System.out.println("\nEscolha uma das seguintes opcoes de conversao!");
                         System.out.println("1 - Converter Recursos para Shield [Preto, Verde, Azul]");
                         System.out.println("2 - Converter Recursos para Fuel [Preto, Vermelho, Verde]");
                         System.out.println("3 - Converter Recursos para outro Recurso");
@@ -266,15 +284,26 @@ public class Interface {
                         }
 
                     } while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
-                    if(choice == 3){
-                        System.out.println("Diga o nome do Recurso que pretende usar para a troca");
-                        System.out.print(">> ");
-                        from = scanner.next();
-                        
-                        System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
-                        System.out.print(">> ");
-                        to = scanner.next();
-                        
+                    
+                    if (choice == 3) {
+                        do {
+                            do {
+                                System.out.println("\nDiga o nome do Recurso que pretende usar para a troca");
+                                System.out.print(">> ");
+                                from = scanner.next();
+                                from.toUpperCase().charAt(0);
+                                
+                            } while (!(from.equals("Preto")) && !(from.equals("Vermelho")) && !(from.equals("Azul")) && !(from.equals("Verde")));
+
+                            do {
+                                System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
+                                System.out.print(">> ");
+                                to = scanner.next();
+                                to.toUpperCase().charAt(0);
+                                
+                            } while (!(from.equals("Preto")) && !(from.equals("Vermelho")) && !(from.equals("Azul")) && !(from.equals("Verde")));
+                            
+                        } while (from.equals(" ") && to.equals(" "));
                     }
                     
                     ob.useRecursos(choice, from, to);
@@ -285,6 +314,14 @@ public class Interface {
                     break;
                     
                 case 4:
+                    ob.getJogo().getLog().requestLog();
+                    break;
+                    
+                case 5:
+                    ob.getJogo().getSpaceShip().setArtifacts(5);
+                    break;
+                    
+                case 6:
                     ob.nextTurn();
                     break;
                     
@@ -292,19 +329,16 @@ public class Interface {
                     break;
             }
         }
-        
-//        System.out.println(" ------ WaitPlanetSectorPhase End! ------ \n\n");
-        
+                
     }
     
     private void UserInputWaitSpaceStation(){
         
-//        System.out.println(" ------ WaitSpaceStationPhase Begin! ------ \n\n");
         int choice = 0;
         String from = " ", to = " ";
-        //Sitio onde se vai fazer maior parte das trocas, ter em atençao à carta de referencia!
+        
         do {
-                System.out.println("Escolha uma das seguintes opcoes!");
+                System.out.println("\nEscolha uma das seguintes opcoes!");
                 System.out.println("1 - Upgrade cargo level");
                 System.out.println("2 - Converter Recursos para outros");
                 System.out.println("3 - Comprar um novo Tripulante");
@@ -321,7 +355,7 @@ public class Interface {
             } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6);
         
         if (choice == 2) {
-            System.out.println("Diga o nome do Recurso que pretende usar para a troca");
+            System.out.println("\nDiga o nome do Recurso que pretende usar para a troca");
             System.out.print(">> ");
             from = scanner.next();
 
@@ -336,14 +370,11 @@ public class Interface {
         
         else
             ob.unDock();
-        
-//        System.out.println(" ------ WaitSpaceStationPhase End! ------ \n\n");
-        
+                
     }
     
     private void UserInputWaitLanding() {
 
-//        System.out.println(" ------ WaitLandingPhase Begin! ------ \n\n");
         do {
             if (ob.getJogo().getPlaneta().getTerreno().checkFight()) {
                 while (!ob.getJogo().getFightOver()) {
@@ -386,16 +417,14 @@ public class Interface {
             }
         } while ((ob.getJogo().getPlaneta().getTerreno().getDrone().getRes() == null));
 
-//        System.out.println(" ------ WaitLandingPhase End! ------ \n\n");
     }
 
     private void UserInputGameOver() throws IOException{
         
-//        System.out.println(" ------ WaitGameOverPhase Begin! ------ \n\n");
         int choice = 0;
 
         //Decisão final onde se pergunta se queremos jogar outra vez ou sair
-        System.out.println("Escolha uma das direcoes:");
+        System.out.println("\nEscolha uma das direcoes:");
         System.out.println("1 - Começar um novo jogo\n2 - Sair\n");
         System.out.print(">> ");
         
@@ -410,7 +439,6 @@ public class Interface {
                 EscreverFicheiro logging = new EscreverFicheiro(ob.getJogo());
                 System.exit(0);
         }
-//        System.out.println(" ------ WaitGameOverPhase End! ------ \n\n");
         
     }
 }

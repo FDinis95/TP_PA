@@ -18,17 +18,12 @@ public class WaitLanding extends StateAdapter{
         if (getJogo().getPlaneta().getTerreno().checkFight()) {
 
             getJogo().setFightOver(false);
-            getJogo().getLog().addLog("O drone encontrou um alien, vai haver uma luta!");
+            getJogo().getLog().addLog("O drone encontrou um alien, vai haver uma luta!\n");
             getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
 
         } else {
-
             getJogo().getPlaneta().getTerreno().moveEntities(moveX, moveY);
-
-            getJogo().getLog().addLog("Drone em movimento!");
-            getJogo().getLog().printLogs();
-            getJogo().getLog().clearLog();
     
         }
         
@@ -38,7 +33,6 @@ public class WaitLanding extends StateAdapter{
     @Override
     public Estado hasResource() {
 
-        //Fazer um lançamento de dado para saber quantos recursos conseguimos
         getJogo().getDice().rollDice();
         int quantidade = getJogo().getDiceRoll();
         
@@ -55,8 +49,7 @@ public class WaitLanding extends StateAdapter{
         //Tirar 1 de Fuel
         getJogo().getSpaceShip().subFuel(1);
          
-        getJogo().getLog().addLog("O drone encontrou o recurso, vai voltar a base e depositar o que tem!");
-        getJogo().getLog().addLog("" + getJogo().getSpaceShip());
+        getJogo().getLog().addLog("O drone encontrou o recurso, vai voltar a base e depositar o que tem!\n");
         getJogo().getLog().printLogs();
         getJogo().getLog().clearLog();
 
@@ -95,7 +88,6 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Preto morreu, outro a nascer!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -119,7 +111,6 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Verde morreu, outro a nascer!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -143,7 +134,6 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Azul morreu, outro a nascer!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -167,7 +157,6 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Vermelho morreu, outro a nascer!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -188,6 +177,7 @@ public class WaitLanding extends StateAdapter{
                 case "Preto":
                     if(diceRoll == 1){
                         getJogo().getPlaneta().getTerreno().getDrone().subVida();
+                        
                         if(getJogo().getPlaneta().getTerreno().getDrone().getVida() == 0){
                             getJogo().getPlaneta().getTerreno().setEntityReset(getJogo().getPlaneta().getTerreno().getDrone().getPosX(), getJogo().getPlaneta().getTerreno().getDrone().getPosY());
                             getJogo().getPlaneta().getTerreno().setDrone(null);
@@ -196,6 +186,7 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getLog().addLog("Drone morreu!");
                             getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
+                            
                             return new WaitPlanetSector(getJogo());
                             
                         }
@@ -211,6 +202,7 @@ public class WaitLanding extends StateAdapter{
                 case "Verde":
                     if(diceRoll <= 2){
                         getJogo().getPlaneta().getTerreno().getDrone().subVida();
+                        
                         if(getJogo().getPlaneta().getTerreno().getDrone().getVida() == 0){
                             getJogo().getPlaneta().getTerreno().setEntityReset(getJogo().getPlaneta().getTerreno().getDrone().getPosX(), getJogo().getPlaneta().getTerreno().getDrone().getPosY());
                             getJogo().getPlaneta().getTerreno().setDrone(null);
@@ -219,14 +211,14 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getLog().addLog("Drone morreu!");
                             getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
+                            
                             return new WaitPlanetSector(getJogo());
                             
                         }
                         getJogo().getLog().addLog("Drone perdeu 1 de vida, tem atualmente: " + getJogo().getPlaneta().getTerreno().getDrone().getVida());
                         getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
-
-                        
+         
                     }
                     
                     break;
@@ -234,6 +226,7 @@ public class WaitLanding extends StateAdapter{
                 case "Azul":
                     if(diceRoll == 3 || diceRoll == 4 || diceRoll == 5){
                         getJogo().getPlaneta().getTerreno().getDrone().subVida();
+                        
                         if(getJogo().getPlaneta().getTerreno().getDrone().getVida() == 0){
                             getJogo().getPlaneta().getTerreno().setEntityReset(getJogo().getPlaneta().getTerreno().getDrone().getPosX(), getJogo().getPlaneta().getTerreno().getDrone().getPosY());
                             getJogo().getPlaneta().getTerreno().setDrone(null);
@@ -242,6 +235,7 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getLog().addLog("Drone morreu!");
                             getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
+                            
                             return new WaitPlanetSector(getJogo());
                             
                         }
@@ -256,6 +250,7 @@ public class WaitLanding extends StateAdapter{
                 case "Vermelho":
                     if(diceRoll >= 5){
                         getJogo().getPlaneta().getTerreno().getDrone().subVida();
+                        
                         if(getJogo().getPlaneta().getTerreno().getDrone().getVida() == 0){
                             getJogo().getPlaneta().getTerreno().setEntityReset(getJogo().getPlaneta().getTerreno().getDrone().getPosX(), getJogo().getPlaneta().getTerreno().getDrone().getPosY());
                             getJogo().getPlaneta().getTerreno().setDrone(null);
@@ -264,6 +259,7 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getLog().addLog("Drone morreu!");
                             getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
+                            
                             return new WaitPlanetSector(getJogo());
                             
                         }
@@ -280,7 +276,6 @@ public class WaitLanding extends StateAdapter{
             }
             
             turn++;
-            getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
             
         }while(!(getJogo().getFightOver()));
