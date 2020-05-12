@@ -36,6 +36,6 @@ public interface Estado {
     Estado rollD6(int id);
     
     //WaitGameOver
-    Estado end();
+    Estado newGame();
     
 }

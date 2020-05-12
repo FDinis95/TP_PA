@@ -8,44 +8,48 @@ import java.util.Scanner;
 
 public class Interface {
 
-    private ObservableGame ob;
+    private MaquinaEstados ob;
     private Scanner scanner;
+    private boolean sair = false;
 
-    public Interface(ObservableGame obGame) {
+    public Interface(MaquinaEstados obGame) {
         this.ob = obGame;
         scanner = new Scanner(System.in);
         
     }
     
-    public void menuInicial() throws IOException{
-        
-        while(!(ob.getEstado() instanceof WaitGameOver)){
-            
-            if(ob.getEstado() instanceof WaitBegining){
+    public void menuInicial() throws IOException {
+
+        while (!sair) {
+
+            if (ob.getEstado() instanceof WaitBegining) {
                 UserInputWaitBeginning();
-                
-            }else if(ob.getEstado() instanceof WaitShipSelection){            
+
+            } else if (ob.getEstado() instanceof WaitShipSelection) {
                 UserInputWaitShipSelection();
-                
-            }else if(ob.getEstado() instanceof WaitMove){
+
+            } else if (ob.getEstado() instanceof WaitMove) {
                 UserInputWaitMove();
-                
-            }else if(ob.getEstado() instanceof WaitEvent){
+
+            } else if (ob.getEstado() instanceof WaitEvent) {
                 UserInputWaitEvent();
-                
-            }else if(ob.getEstado() instanceof WaitPlanetSector){
+
+            } else if (ob.getEstado() instanceof WaitPlanetSector) {
                 UserInputWaitPlanetSector();
-                
-            }else if(ob.getEstado() instanceof WaitLanding){
+
+            } else if (ob.getEstado() instanceof WaitLanding) {
                 UserInputWaitLanding();
-                
-            }else if(ob.getEstado() instanceof WaitSpaceStation){
+
+            } else if (ob.getEstado() instanceof WaitSpaceStation) {
                 UserInputWaitSpaceStation();
-                
+
+            } else if ((ob.getEstado() instanceof WaitGameOver)) {
+                UserInputGameOver();
+
             }
+
         }
-        
-        UserInputGameOver();
+
     }
     
     private void UserInputWaitBeginning(){
@@ -432,12 +436,12 @@ public class Interface {
         
         switch(choice){
             case 1:
-                ob.setup();
+                ob.newGame();
                 break;
                 
             case 2:
                 EscreverFicheiro logging = new EscreverFicheiro(ob.getJogo());
-                System.exit(0);
+                sair = true;
         }
         
     }

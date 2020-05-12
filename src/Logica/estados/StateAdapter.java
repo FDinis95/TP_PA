@@ -117,7 +117,7 @@ public class StateAdapter implements Estado {
     }
 
     @Override
-    public Estado end() {
+    public Estado newGame() {
         return this;
         
     }
