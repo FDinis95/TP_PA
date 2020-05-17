@@ -2,6 +2,7 @@ package UI.gui;
 
 import Logica.MaquinaEstados;
 import Logica.ObservableGame;
+import static UI.gui.Constants.BACKGROUND;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -24,20 +25,15 @@ public class Root extends Application {
         StackPane root = new StackPane();
         root.setBackground(new Background(
                 new BackgroundImage(
-                        new Image(getClass().getResource("Images\\Background.png").toString()),
+                        new Image(getClass().getResourceAsStream(BACKGROUND)),
                          BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-        
-        
-        Scene scene = new Scene(root, 1000, 750);
+        Scene scene = new Scene(root, 1200, 750);
         primaryStage.setTitle("PlanetBound");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
