@@ -8,13 +8,12 @@ public class SpaceShip {
     
     private int fuelStorage;
     private int shieldCapacity;
-//    private int weaponSystem;
+    private int weaponSystem;
     
-    //Considerar e talvez mudar mesmo para LinkedHashMap<Resource, int> cargoHold
-    //para preservar a ordem dos recursos
     private LinkedHashMap<Resource, Integer> cargo;
     
     private int upgradeLevel;
+    private int weaponUpgradeLimit;
     private ArrayList<String> crewMembers; 
     private int artifact;
     private Drone drone;
@@ -23,6 +22,7 @@ public class SpaceShip {
     public SpaceShip() {
         
         this.upgradeLevel = 0;
+        this.weaponUpgradeLimit = 1;
         this.numberVisits = 0;
         this.drone = new Drone();
         this.artifact = 0;
@@ -32,7 +32,7 @@ public class SpaceShip {
                 add("Navigation");
                 add("Landing");
                 add("Shields");
-//                add("Weapons");
+                add("Weapons");
                 add("Cargo");
             }
         };
@@ -136,6 +136,18 @@ public class SpaceShip {
             upgradeLevel--;        
     }
     
+    public int getWeaponUpgradeLimit(){
+        return weaponUpgradeLimit;
+        
+    }
+    
+    public void setWeaponUpgradeLimit(int value){
+        this.weaponUpgradeLimit = value;
+        
+    }
+    
+    public void addWeaponUpgradeLimit(){}
+    
     public ArrayList<String> getCrewMembers() {
         return crewMembers;
     }
@@ -230,6 +242,28 @@ public class SpaceShip {
             
         }else
             shieldCapacity -= value;
+    }
+
+    public int getWeaponSystem() {
+        return weaponSystem;
+    }
+
+    public void setWeaponSystem(int weaponSystem) {
+        this.weaponSystem = weaponSystem;
+    }
+    
+    public int getMaxWeapon(){
+        return 0;
+    }
+    
+    public void addWeapon(){}
+    
+    public void subWeapon(int value){
+        if((weaponSystem - value) <= 0){
+            weaponSystem = 0;
+            
+        }else
+            weaponSystem -= value;
     }
     
     public Drone getDrone() {

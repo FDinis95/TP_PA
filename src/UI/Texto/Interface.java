@@ -1,6 +1,7 @@
 package UI.Texto;
 
 import Logica.*;
+import Logica.dados.variations.MilitaryShip;
 import Logica.estados.*;
 import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.IOException;
@@ -84,47 +85,51 @@ public class Interface {
         int sectorType = 0;
         int planetType = 0;
         
-        do{
-            System.out.println("\nEntrar em?");
-            System.out.println("1 - Modo Automatico\n2 - Modo manual");
-            System.out.print(">> ");
-            choice = scanner.nextInt();
-            
-        }while(choice != 1 && choice != 2);
         
-        switch(choice){
-            case 1:
-                ob.move();
-                break;
-            
-            case 2: //do while()
-                do {
-                    System.out.println("\nDefinir o tipo de movimento");
-                    System.out.println("1 - Normal\n2 - Buraco Negro");
-                    System.out.println(">> ");
-                    moveType = scanner.nextInt();
-                    
-                } while (moveType != 1 && moveType != 2);
+        if (!ob.getJogo().getWasPlanet()) {
+            do {
+                System.out.println("\nEntrar em?");
+                System.out.println("1 - Modo Automatico\n2 - Modo manual");
+                System.out.print(">> ");
+                choice = scanner.nextInt();
 
-                do {
-                    System.out.println("\nDefinir o tipo de sector");
-                    System.out.println("1 - Branco\n2 - Vermelho");
-                    System.out.println(">> ");
-                    sectorType = scanner.nextInt();
-                    
-                } while (sectorType != 1 && sectorType != 2);
+            } while (choice != 1 && choice != 2);
 
-                do {
-                    System.out.println("\nDefinir o tipo de Planeta");
-                    System.out.println("1 - Planeta Verde\n2 - Planeta Preto\n3 - Planeta Vermelho\n4 - Planeta Azul");
-                    System.out.println(">> ");
-                    planetType = scanner.nextInt();
-                    
-                } while (planetType != 1 && planetType != 2 && planetType != 3 && planetType != 4);
-                
-                ob.move(moveType, sectorType, planetType);
+            switch (choice) {
+                case 1:
+                    ob.move();
+                    break;
 
-        }
+                case 2: //do while()
+                    do {
+                        System.out.println("\nDefinir o tipo de movimento");
+                        System.out.println("1 - Normal\n2 - Buraco Negro");
+                        System.out.println(">> ");
+                        moveType = scanner.nextInt();
+
+                    } while (moveType != 1 && moveType != 2);
+
+                    do {
+                        System.out.println("\nDefinir o tipo de sector");
+                        System.out.println("1 - Branco\n2 - Vermelho");
+                        System.out.println(">> ");
+                        sectorType = scanner.nextInt();
+
+                    } while (sectorType != 1 && sectorType != 2);
+
+                    do {
+                        System.out.println("\nDefinir o tipo de Planeta");
+                        System.out.println("1 - Planeta Verde\n2 - Planeta Preto\n3 - Planeta Vermelho\n4 - Planeta Azul");
+                        System.out.println(">> ");
+                        planetType = scanner.nextInt();
+
+                    } while (planetType != 1 && planetType != 2 && planetType != 3 && planetType != 4);
+
+                    ob.move(moveType, sectorType, planetType);
+
+            }
+        }else
+            ob.move();
         
     }
     
@@ -341,7 +346,46 @@ public class Interface {
         int choice = 0;
         String from = " ", to = " ";
         
-        do {
+        if(ob.getJogo().getSpaceShip() instanceof MilitaryShip){
+            
+            do {
+                System.out.println("\nEscolha uma das seguintes opcoes!");
+                System.out.println("1 - Upgrade cargo level");
+                System.out.println("2 - Upgrade weapon system");
+                System.out.println("3 - Converter Recursos para outros");
+                System.out.println("4 - Comprar um novo Tripulante");
+                System.out.println("5 - Aumentar a vida do Drone");
+                System.out.println("6 - Comprar um novo Drone");
+                System.out.println("7 - Sair da SpaceStation");
+                System.out.print(">> ");
+
+                choice = scanner.nextInt();
+                if (choice <= 0 || choice >= 8) {
+                    System.out.println("Nao escolheu nenhuma opcao disponivel, volte a tentar\n");
+                }
+
+            } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7);
+        
+        if (choice == 3) {
+            System.out.println("\nDiga o nome do Recurso que pretende usar para a troca");
+            System.out.print(">> ");
+            from = scanner.next();
+
+            System.out.println("Diga o nome do Recurso que pretende ganhar da troca");
+            System.out.print(">> ");
+            to = scanner.next();
+
+        }
+        
+        if(choice != 7)
+            ob.useSpaceStation(choice, from, to);
+        
+        else
+            ob.unDock();
+        
+        }else{
+            
+            do {
                 System.out.println("\nEscolha uma das seguintes opcoes!");
                 System.out.println("1 - Upgrade cargo level");
                 System.out.println("2 - Converter Recursos para outros");
@@ -374,6 +418,10 @@ public class Interface {
         
         else
             ob.unDock();
+            
+            
+        }
+            
                 
     }
     

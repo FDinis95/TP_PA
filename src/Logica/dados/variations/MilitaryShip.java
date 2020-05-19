@@ -5,20 +5,41 @@ import Logica.dados.SpaceShip;
 
 public class MilitaryShip extends SpaceShip {
 
+    
+    
     public MilitaryShip() {
         super();
         setFuelStorage(35);
         setShieldCapacity(9);
+        setWeaponSystem(18);
     }
     
     @Override
     public int getMaxFuel(){
         return 35;
+        
     }
     
     @Override
     public int getMaxShield(){
         return 9;
+        
+    }
+    
+    @Override
+    public int getMaxWeapon(){
+        return 18;
+        
+    }
+
+    @Override
+    public void addWeaponUpgradeLimit(){
+        if((getWeaponUpgradeLimit() + 1) >= 2){
+            setWeaponUpgradeLimit(2);
+            
+        }else
+            setWeaponUpgradeLimit(getWeaponUpgradeLimit() + 1);
+        
     }
     
     @Override
@@ -75,12 +96,30 @@ public class MilitaryShip extends SpaceShip {
         }else
             setShieldCapacity(getShieldCapacity() + 1);
     }
+    
+    @Override
+    public void addWeapon(){
+        if(getWeaponUpgradeLimit() == 1){
+            if(getWeaponSystem() >= 9){
+                setWeaponSystem(9);
+                
+            }else
+                setWeaponSystem(getWeaponSystem() + 1);
+            
+        }else
+            if(getWeaponSystem() >= 18){
+                setWeaponSystem(18);
+                
+            }else
+                setWeaponSystem(getWeaponSystem() + 1);
+        
+    }
 
     @Override
     public String toString() {
         
-        String s = "Military{" + "\n\tfuelStorage = " + getFuelStorage() + "\n\tshieldCapacity = " + getShieldCapacity() +
-                "\n\tcargo " + getCargo();
+        String s = "Military{" + "\n\tfuelStorage = " + getFuelStorage() + "\n\tshieldCapacity = " + getShieldCapacity() + 
+                "\n\tweaponSystem = " + getWeaponSystem() + "\n\tcargo " + getCargo();
         
         s += "\n\tupgradeLevel = " + getUpgradeLevel() +
                 "\n\tcrewMembers = " + getCrewMembers() + "\n\tartifact = " + getArtifact() + "\n\tdrone = " + getDrone() + "\n}";

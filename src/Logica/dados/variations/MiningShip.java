@@ -9,6 +9,7 @@ public class MiningShip extends SpaceShip {
         super();
         setFuelStorage(53);
         setShieldCapacity(18);
+        setWeaponSystem(9);
         
     }
     
@@ -20,6 +21,11 @@ public class MiningShip extends SpaceShip {
     @Override
     public int getMaxShield(){
         return 18;
+    }
+    
+    @Override
+    public int getMaxWeapon(){
+        return 9;
     }
     
     @Override
@@ -89,10 +95,20 @@ public class MiningShip extends SpaceShip {
     }
     
     @Override
+    public void addWeapon() {
+        if(getWeaponSystem() >= 9) {
+            setWeaponSystem(9);
+
+        }else
+            setWeaponSystem(getWeaponSystem() + 1);
+
+    }
+    
+    @Override
     public String toString() {
         
         String s = "Mining{" + "\n\tfuelStorage = " + getFuelStorage() + "\n\tshieldCapacity = " + getShieldCapacity() +
-                "\n\tcargo " + getCargo();
+                "\n\tweaponSystem = " + getWeaponSystem() + "\n\tcargo " + getCargo();
         
         s += "\n\tupgradeLevel = " + getUpgradeLevel() +
                 "\n\tcrewMembers = " + getCrewMembers() + "\n\tartifact = " + getArtifact() + "\n\tdrone = " + getDrone() + "\n}";

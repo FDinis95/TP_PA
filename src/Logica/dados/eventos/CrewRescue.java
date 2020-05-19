@@ -27,8 +27,14 @@ public class CrewRescue extends Events {
                 game.getSpaceShip().addCrewMember("Shields");
                 game.getLog().addLog("Encontraste um Shield Officer!");
                 break;
+            
+            case 4:
+                game.getSpaceShip().addCrewMember("Weapons");
+                game.getLog().addLog("Encontraste um Weapons Officer!");
                 
-            case 4:                
+                break;
+                
+            case 5:                
                 game.getSpaceShip().addCrewMember("Cargo");
                 game.getLog().addLog("Encontraste um Cargo Officer!");
                 break;
