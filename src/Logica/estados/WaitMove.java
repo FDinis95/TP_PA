@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.FabricaPlanetas;
 import Logica.dados.SpaceStation;
@@ -171,5 +172,12 @@ public class WaitMove extends StateAdapter {
             }
         }
     }
+    
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_MOVE;
+        
+    }
+    
 
 }

@@ -2,7 +2,7 @@ package Logica.estados;
 
 import Logica.Jogo;
 
-public class StateAdapter implements Estado {
+public abstract class StateAdapter implements Estado {
     
     private Jogo jogo;
 

@@ -1,5 +1,7 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
+
 public interface Estado {
     
     //WaitBeginning
@@ -38,4 +40,5 @@ public interface Estado {
     //WaitGameOver
     Estado newGame();
     
+    InteracaoEsperada getInteracaoEsperada();
 }

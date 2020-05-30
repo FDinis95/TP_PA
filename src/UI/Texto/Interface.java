@@ -23,34 +23,45 @@ public class Interface {
 
         while (!sair) {
 
-            if (ob.getEstado() instanceof WaitBegining) {
-                UserInputWaitBeginning();
+            InteracaoEsperada interacaoEsperada = ob.getInteracaoEsperada();
+            
+            switch(interacaoEsperada){
+                
+                case INTERACAO_WAIT_BEGINNING:
+                    UserInputWaitBeginning();
+                    break;
+                
+                case INTERACAO_WAIT_SHIP_SELECTION:
+                    UserInputWaitShipSelection();
+                    break;
+                    
+                case INTERACAO_WAIT_MOVE:
+                    UserInputWaitMove();
+                    break;
+                    
+                case INTERACAO_WAIT_EVENT:
+                    UserInputWaitEvent();
+                    break;
+                    
+                case INTERACAO_WAIT_PLANET_SECTOR:
+                    UserInputWaitPlanetSector();
+                    break;
+                    
+                case INTERACAO_WAIT_LANDING:
+                    UserInputWaitLanding();
 
-            } else if (ob.getEstado() instanceof WaitShipSelection) {
-                UserInputWaitShipSelection();
-
-            } else if (ob.getEstado() instanceof WaitMove) {
-                UserInputWaitMove();
-
-            } else if (ob.getEstado() instanceof WaitEvent) {
-                UserInputWaitEvent();
-
-            } else if (ob.getEstado() instanceof WaitPlanetSector) {
-                UserInputWaitPlanetSector();
-
-            } else if (ob.getEstado() instanceof WaitLanding) {
-                UserInputWaitLanding();
-
-            } else if (ob.getEstado() instanceof WaitSpaceStation) {
-                UserInputWaitSpaceStation();
-
-            } else if ((ob.getEstado() instanceof WaitGameOver)) {
-                UserInputGameOver();
-
+                    break;
+                    
+                case INTERACAO_WAIT_SPACE_STATION:
+                    UserInputWaitSpaceStation();
+                    break;
+                    
+                case INTERACAO_WAIT_GAMEOVER:
+                    UserInputGameOver();
+                    break;
+                    
             }
-
         }
-
     }
     
     private void UserInputWaitBeginning(){

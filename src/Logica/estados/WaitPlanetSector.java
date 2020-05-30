@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.Alien;
 import Logica.dados.FabricaAliens;
@@ -327,6 +328,12 @@ public class WaitPlanetSector extends StateAdapter {
         
         
         return new WaitPlanetSector(getJogo());
+    }
+    
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_PLANET_SECTOR;
+        
     }
     
 }

@@ -2,7 +2,11 @@ package UI.gui;
 
 public interface Constants {
     
+    //IMAGENS
     public final String BACKGROUND = "Images\\Background.png";
+    public final String ROCKET_SHIP = "Images\\RocketShip.png";
+    public final String MINING_SHIP = "Images\\MiningShip.png";
+    public final String MILITARY_SHIP = "Images\\MilitaryShip.png";
     public final String CREW_ARTIFACTS = "Images\\Crew_Artifacts.png";
     public final String EVENTS = "Images\\EventsCard.png";
     public final String MILITARY_CARGO_HOLD = "Images\\Military_Cargo_Hold.png";
@@ -18,6 +22,8 @@ public interface Constants {
     public final String REFERENCE_CARD = "Images\\Reference_Card.png";
     public final String TERRAIN = "Images\\Terrain.png";
     
+    //SONS
+    public final String ROCKET_LAUNCH = "Sounds\\RocketLaunch.mp3";
     
     
 }

@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.variations.MilitaryShip;
 
@@ -559,6 +560,12 @@ public class WaitSpaceStation extends StateAdapter {
         }
 
         return new WaitSpaceStation(getJogo());
+    }
+    
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_SPACE_STATION;
+        
     }
 
 }

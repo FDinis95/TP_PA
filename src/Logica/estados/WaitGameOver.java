@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 
 public class WaitGameOver extends StateAdapter {
@@ -14,7 +15,11 @@ public class WaitGameOver extends StateAdapter {
         
     }
     
-    
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_GAMEOVER;
+        
+    }
     
     
 }

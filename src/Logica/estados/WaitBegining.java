@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 
 
@@ -20,6 +21,11 @@ public class WaitBegining extends StateAdapter {
         getJogo().getLog().clearLog();
         
         return new WaitShipSelection(getJogo());
+    }
+
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_BEGINNING;
     }
     
     

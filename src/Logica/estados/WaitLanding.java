@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.Alien;
 import Logica.dados.FabricaAliens;
@@ -283,4 +284,10 @@ public class WaitLanding extends StateAdapter{
         return new WaitLanding(getJogo());
     }
 
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_LANDING;
+        
+    }
+    
 }

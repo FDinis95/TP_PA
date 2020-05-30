@@ -1,5 +1,6 @@
 package Logica.estados;
 
+import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.FabricaEventos;
 
@@ -79,6 +80,12 @@ public class WaitEvent extends StateAdapter {
             
             return new WaitMove(getJogo()); 
         }
+        
+    }
+
+    @Override
+    public InteracaoEsperada getInteracaoEsperada() {
+        return InteracaoEsperada.INTERACAO_WAIT_EVENT;
         
     }
 }
