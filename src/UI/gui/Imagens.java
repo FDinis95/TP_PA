@@ -15,7 +15,15 @@ public class Imagens {
         imagens.put(Constants.ROCKET_SHIP, new Image(Resources.getImageResourceFile(Constants.ROCKET_SHIP)));
         imagens.put(Constants.MINING_SHIP, new Image(Resources.getImageResourceFile(Constants.MINING_SHIP)));
         imagens.put(Constants.MILITARY_SHIP, new Image(Resources.getImageResourceFile(Constants.MILITARY_SHIP)));
-        imagens.put(Constants.CREW_ARTIFACTS, new Image(Resources.getImageResourceFile(Constants.CREW_ARTIFACTS)));
+        imagens.put(Constants.ARTIFACT, new Image(Resources.getImageResourceFile(Constants.ARTIFACT)));
+        imagens.put(Constants.DRONE, new Image(Resources.getImageResourceFile(Constants.DRONE)));
+        imagens.put(Constants.NO_DRONE, new Image(Resources.getImageResourceFile(Constants.NO_DRONE)));
+        imagens.put(Constants.CAPTAIN_CREW, new Image(Resources.getImageResourceFile(Constants.CAPTAIN_CREW)));
+        imagens.put(Constants.NAVIGATION_CREW, new Image(Resources.getImageResourceFile(Constants.NAVIGATION_CREW)));
+        imagens.put(Constants.LANDING_CREW, new Image(Resources.getImageResourceFile(Constants.LANDING_CREW)));
+        imagens.put(Constants.SHIELD_CREW, new Image(Resources.getImageResourceFile(Constants.SHIELD_CREW)));
+        imagens.put(Constants.WEAPON_CREW, new Image(Resources.getImageResourceFile(Constants.WEAPON_CREW)));
+        imagens.put(Constants.CARGO_CREW, new Image(Resources.getImageResourceFile(Constants.CARGO_CREW)));
         imagens.put(Constants.EVENTS, new Image(Resources.getImageResourceFile(Constants.EVENTS)));
         imagens.put(Constants.MILITARY_CARGO_HOLD, new Image(Resources.getImageResourceFile(Constants.MILITARY_CARGO_HOLD)));
         imagens.put(Constants.MILITARY_FUEL_SYSTEM, new Image(Resources.getImageResourceFile(Constants.MILITARY_FUEL_SYSTEM)));

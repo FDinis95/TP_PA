@@ -1,6 +1,9 @@
 package UI.gui;
 
 import Logica.ObservableGame;
+import Logica.dados.SpaceStation;
+import Logica.dados.variations.MiningShip;
+import Logica.dados.variations.PlanetAzul;
 import static UI.gui.Constants.BACKGROUND;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -28,9 +31,19 @@ public class Root extends BorderPane{
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         
         WaitBeginningPane begin = new WaitBeginningPane(modeloObs);
-        WaitShipSelectionPane selectShip = new WaitShipSelectionPane(modeloObs);
         
-        StackPane center = new StackPane(begin, selectShip);
+        
+        modeloObs.setSpaceShip(new MiningShip());
+        modeloObs.setPlaneta(new PlanetAzul());
+        modeloObs.getJogo().getPlaneta().setSpaceStation(new SpaceStation());
+        
+        WaitShipSelectionPane selectShip = new WaitShipSelectionPane(modeloObs); 
+        
+        WaitMovePane move = new WaitMovePane(modeloObs);
+        WaitPlanetSectorPane planetSector = new WaitPlanetSectorPane(modeloObs);
+        WaitSpaceStationPane spaceStation = new WaitSpaceStationPane(modeloObs);
+        
+        StackPane center = new StackPane(begin, selectShip, move, planetSector, spaceStation);
         
         this.setCenter(center);
                 

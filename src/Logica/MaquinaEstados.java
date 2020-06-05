@@ -23,7 +23,7 @@ public class MaquinaEstados {
         
     }
 
-    public void setEstado(Estado estado) {
+    private void setEstado(Estado estado) {
         this.estado = estado;
         
     }
@@ -103,7 +103,7 @@ public class MaquinaEstados {
         
     }
     
-    public void start(int valor){
+    public void selectShip(int valor){
         setEstado(estado.selectShip(valor));
         
     }

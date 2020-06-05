@@ -7,7 +7,15 @@ public interface Constants {
     public final String ROCKET_SHIP = "Images\\RocketShip.png";
     public final String MINING_SHIP = "Images\\MiningShip.png";
     public final String MILITARY_SHIP = "Images\\MilitaryShip.png";
-    public final String CREW_ARTIFACTS = "Images\\Crew_Artifacts.png";
+    public final String ARTIFACT = "Images\\Artifact.png";
+    public final String DRONE = "Images\\Drone.png";
+    public final String NO_DRONE = "Images\\NoDrone.png";
+    public final String CAPTAIN_CREW = "Images\\captain.png";
+    public final String CARGO_CREW = "Images\\cargo.png";
+    public final String LANDING_CREW = "Images\\landing.png";
+    public final String NAVIGATION_CREW = "Images\\navigation.png";
+    public final String SHIELD_CREW = "Images\\shield.png";
+    public final String WEAPON_CREW = "Images\\weapons.png";
     public final String EVENTS = "Images\\EventsCard.png";
     public final String MILITARY_CARGO_HOLD = "Images\\Military_Cargo_Hold.png";
     public final String MILITARY_FUEL_SYSTEM = "Images\\Military_Fuel_System.png";

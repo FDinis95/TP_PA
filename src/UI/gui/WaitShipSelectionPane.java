@@ -5,16 +5,15 @@ import Logica.ObservableGame;
 import static UI.gui.Constants.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 
-public class WaitShipSelectionPane extends HBox {
+public class WaitShipSelectionPane extends BorderPane {
 
     private ObservableGame modeloObs;
     
@@ -36,14 +35,51 @@ public class WaitShipSelectionPane extends HBox {
     
     private void organizaComponentes(){
         
-        setBackground(new Background(
-                new BackgroundImage(Imagens.getImagem(BACKGROUND),
-                         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+        VBox miningSide = new VBox();
+        VBox militarySide = new VBox();
         
+        Button miningOption = new Button("Mining Ship");
+        Button militaryOption = new Button("Military Ship");
+        
+        militaryOption.setOnAction((event) -> {
+            modeloObs.selectShip(1);
+            
+            
+        });
+        
+        miningOption.setOnAction((event) -> {
+            modeloObs.selectShip(2);
+            
+        });
+
         ImageView miningShip = new ImageView(Imagens.getImagem(MINING_SHIP));
         ImageView militaryShip = new ImageView(Imagens.getImagem(MILITARY_SHIP));
         
-        getChildren().addAll(miningShip, militaryShip);
+        //Move Buttons a bit lower
+        miningOption.setTranslateY(30);
+        militaryOption.setTranslateY(30);
+        
+        //Set Images Size
+        miningShip.setFitWidth(400);
+        miningShip.setFitHeight(400);
+        militaryShip.setFitWidth(400);
+        militaryShip.setFitHeight(400);
+        
+        //Set Images Positions
+        miningSide.setAlignment(Pos.CENTER);
+        miningSide.setPadding(new Insets(100));
+        
+        militarySide.setAlignment(Pos.CENTER);
+        militarySide.setPadding(new Insets(100));
+        
+        militarySide.getChildren().addAll(militaryShip, militaryOption);
+        miningSide.getChildren().addAll(miningShip, miningOption);
+        
+        setLeft(militarySide);
+        setRight(miningSide);
+        
+        
         
     }
     

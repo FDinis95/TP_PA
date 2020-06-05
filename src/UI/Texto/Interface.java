@@ -85,7 +85,7 @@ public class Interface {
 
         } while (valor != 1 && valor != 2);
         
-        ob.start(valor);
+        ob.selectShip(valor);
         
     }
     

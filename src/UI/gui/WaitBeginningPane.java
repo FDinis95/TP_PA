@@ -2,7 +2,6 @@ package UI.gui;
 
 import Logica.InteracaoEsperada;
 import Logica.ObservableGame;
-import static UI.gui.Constants.BACKGROUND;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Timer;
@@ -12,11 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
@@ -43,11 +37,7 @@ public class WaitBeginningPane extends BorderPane {
     }
     
     private void organizaComponentes(){
-        
-        setBackground(new Background(
-                new BackgroundImage(Imagens.getImagem(BACKGROUND),
-                         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        
+               
         //HANDLES
         Button start = new Button("Start Game");
         Button exit = new Button("Exit Game");
@@ -77,16 +67,16 @@ public class WaitBeginningPane extends BorderPane {
         
         //Handle do botão Start
         start.setOnAction((ActionEvent event) -> {
-            moveRocket(spaceShip);
+//            moveRocket(spaceShip); //VOLTAR A METER DEPOIS
             
             Timer time = new Timer();
             time.schedule(new TimerTask() {
                 @Override
                 public void run() {
-//                    modeloObs.setup();
-                  modeloObs.start(1);
+                  modeloObs.setup();
+                  
                 }
-            }, 3700);
+            }, 0/*3700*/);
             
         });
         
@@ -103,7 +93,7 @@ public class WaitBeginningPane extends BorderPane {
         
     }
     
-    void moveRocket(ImageView rocket){
+    private void moveRocket(ImageView rocket){
         
         TranslateTransition moveRocketY = new TranslateTransition();
         

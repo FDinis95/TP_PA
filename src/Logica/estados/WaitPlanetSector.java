@@ -174,7 +174,7 @@ public class WaitPlanetSector extends StateAdapter {
                     
                     getJogo().getSpaceShip().addShield();
                     
-                    getJogo().getLog().addLog("Nao e preciso gastar recursos, ja tens os shields no maximo!\n");
+                    getJogo().getLog().addLog("Recursos Subtraidos e 1 Shield regenerado!\n");
                     getJogo().getLog().printLogs();
                     getJogo().getLog().clearLog();
                     
@@ -182,9 +182,50 @@ public class WaitPlanetSector extends StateAdapter {
                 
                 
                 break;
+            
+            //Recursos para o Ammo
+            case 2:
+                //Verificação se existe recursos suficientes
+                if((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0){
+                    getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!\n");
+                    getJogo().getLog().printLogs();
+                    getJogo().getLog().clearLog();
+                    
+                    return new WaitPlanetSector(getJogo());
+                    
+                }else  if((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 1) < 0){
+                    getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!\n");
+                    getJogo().getLog().printLogs();
+                    getJogo().getLog().clearLog();
+                    
+                    return new WaitPlanetSector(getJogo());
+                    
+                }else if((getJogo().getSpaceShip().getShieldCapacity()+ 1) > getJogo().getSpaceShip().getMaxWeapon()){
+                    getJogo().getLog().addLog("Nao e preciso gastar recursos, ja tens a Ammo no maximo!\n");
+                    getJogo().getLog().printLogs();
+                    getJogo().getLog().clearLog();
+                    
+                    return new WaitPlanetSector(getJogo());
+                    
+                }else{
+                    
+                    //Feitas as verificações, vamos substrair os Recursos e adicionar o Shield
+                    getJogo().getSpaceShip().subCargo(getJogo().getSpaceShip().getSpecificCargo("Preto"), 1);
+                    getJogo().getSpaceShip().subCargo(getJogo().getSpaceShip().getSpecificCargo("Azul"), 1);
+                    
+                    getJogo().getSpaceShip().addWeapon();
+                    
+                    getJogo().getLog().addLog("Recursos Subtraidos e 1 Ammo regenerado!\n");
+                    getJogo().getLog().printLogs();
+                    getJogo().getLog().clearLog();
+                    
+                }
+                
+                
+                break;    
                 
             //Recursos para o Fuel
-            case 2:
+            case 3:
                 //Verificação se existe recursos suficientes
                 if((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0){
                     getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!\n");
@@ -209,7 +250,7 @@ public class WaitPlanetSector extends StateAdapter {
                     
                  //Verificar se é mesmo necessario os recursos para adicionar 1 shield
                 }else if((getJogo().getSpaceShip().getFuelStorage()+ 1) > getJogo().getSpaceShip().getMaxFuel()){
-                    getJogo().getLog().addLog("Nao e preciso gastar recursos, ja tens os shields no maximo!\n");
+                    getJogo().getLog().addLog("Nao e preciso gastar recursos, ja tens o fuel no maximo!\n");
                     getJogo().getLog().printLogs();
                     getJogo().getLog().clearLog();
                     
@@ -232,7 +273,7 @@ public class WaitPlanetSector extends StateAdapter {
                 break;
                 
             //Recurso para outro recurso    
-            case 3:
+            case 4:
                 //Verificação se existe recursos suficientes
                 if((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo(from)) - 1) < 0){
                     getJogo().getLog().addLog("Nao tens recursos " + from + " suficientes para fazer esta troca!\n");
@@ -262,7 +303,7 @@ public class WaitPlanetSector extends StateAdapter {
                 break;
                 
             //Recursos para aumentar a vida do drone    
-            case 4:
+            case 5:
                 //Verificação se ja existe um drone!
                 if(getJogo().getSpaceShip().getDrone() != null){
                     getJogo().getLog().addLog("Ja tens um drone, nao precisas de outro!\n");
