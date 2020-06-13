@@ -1,9 +1,10 @@
 package Logica.dados;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Log {
+public class Log implements Serializable{
 
     private ArrayList<String> logs;
     private ArrayList<String> fullLog; //Log que no final do jogo vai para um ficheiro

@@ -2,8 +2,9 @@ package Logica.dados.eventos;
 
 import Logica.Jogo;
 import Logica.dados.Events;
+import java.io.Serializable;
 
-public class NoEvent extends Events {
+public class NoEvent extends Events implements Serializable{
 
     public NoEvent() {
         setID(5);

@@ -1,14 +1,16 @@
 package Logica.dados;
 
+import Logica.dados.variations.ResourceAzul;
+import java.io.Serializable;
 
-public class Drone {
+public class Drone implements Serializable{
 
     private int posX, posY;
     private int vida;
     private Resource res;
     
     public Drone() {
-        this.res = null;
+        this.res = new ResourceAzul();
         this.posX = 0;
         this.posY = 0;
         this.vida = 6;

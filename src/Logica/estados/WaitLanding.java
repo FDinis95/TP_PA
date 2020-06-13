@@ -5,9 +5,10 @@ import Logica.Jogo;
 import Logica.dados.Alien;
 import Logica.dados.FabricaAliens;
 import Logica.dados.variations.ResourceRoxo;
+import java.io.Serializable;
 
 
-public class WaitLanding extends StateAdapter{
+public class WaitLanding extends StateAdapter implements Serializable{
 
     public WaitLanding(Jogo jogo) {
         super(jogo);
@@ -20,7 +21,6 @@ public class WaitLanding extends StateAdapter{
 
             getJogo().setFightOver(false);
             getJogo().getLog().addLog("O drone encontrou um alien, vai haver uma luta!\n");
-            getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
 
         } else {
@@ -51,7 +51,6 @@ public class WaitLanding extends StateAdapter{
         getJogo().getSpaceShip().subFuel(1);
          
         getJogo().getLog().addLog("O drone encontrou o recurso, vai voltar a base e depositar o que tem!\n");
-        getJogo().getLog().printLogs();
         getJogo().getLog().clearLog();
 
         return new WaitPlanetSector(getJogo());
@@ -89,6 +88,7 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Preto morreu, outro a nascer!");
+                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -112,6 +112,7 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Verde morreu, outro a nascer!");
+                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -135,6 +136,7 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Azul morreu, outro a nascer!");
+                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -158,6 +160,7 @@ public class WaitLanding extends StateAdapter{
                         getJogo().getPlaneta().getTerreno().putEntity(a, newPosX, newPosY);
                         getJogo().setFightOver(true);
                         getJogo().getLog().addLog("Alien Vermelho morreu, outro a nascer!");
+                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitLanding(getJogo());
@@ -185,7 +188,6 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getSpaceShip().setDrone(null);
                             getJogo().setFightOver(true);
                             getJogo().getLog().addLog("Drone morreu!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
                             
                             return new WaitPlanetSector(getJogo());
@@ -193,7 +195,6 @@ public class WaitLanding extends StateAdapter{
                         }
 
                         getJogo().getLog().addLog("Drone perdeu 1 de vida, tem atualmente: " + getJogo().getPlaneta().getTerreno().getDrone().getVida());
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                     }
@@ -210,14 +211,12 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getSpaceShip().setDrone(null);
                             getJogo().setFightOver(true);
                             getJogo().getLog().addLog("Drone morreu!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
                             
                             return new WaitPlanetSector(getJogo());
                             
                         }
                         getJogo().getLog().addLog("Drone perdeu 1 de vida, tem atualmente: " + getJogo().getPlaneta().getTerreno().getDrone().getVida());
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
          
                     }
@@ -234,14 +233,12 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getSpaceShip().setDrone(null);
                             getJogo().setFightOver(true);
                             getJogo().getLog().addLog("Drone morreu!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
                             
                             return new WaitPlanetSector(getJogo());
                             
                         }
                         getJogo().getLog().addLog("Drone perdeu 1 de vida, tem atualmente: " + getJogo().getPlaneta().getTerreno().getDrone().getVida());
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                     }
@@ -258,14 +255,12 @@ public class WaitLanding extends StateAdapter{
                             getJogo().getSpaceShip().setDrone(null);
                             getJogo().setFightOver(true);
                             getJogo().getLog().addLog("Drone morreu!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
                             
                             return new WaitPlanetSector(getJogo());
                             
                         }
                         getJogo().getLog().addLog("Drone perdeu 1 de vida, tem atualmente: " + getJogo().getPlaneta().getTerreno().getDrone().getVida());
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                     }

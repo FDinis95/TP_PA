@@ -1,9 +1,10 @@
 package Logica.dados;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public abstract class Planet {
+public abstract class Planet implements Serializable{
 
     private Terreno terreno;
     private ArrayList<Resource> recursos;

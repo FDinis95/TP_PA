@@ -2,8 +2,9 @@ package Logica.dados.eventos;
 
 import Logica.Jogo;
 import Logica.dados.Events;
+import java.io.Serializable;
 
-public class CrewRescue extends Events {
+public class CrewRescue extends Events implements Serializable{
 
     public CrewRescue() {
         setID(6);

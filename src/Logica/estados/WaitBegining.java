@@ -2,9 +2,10 @@ package Logica.estados;
 
 import Logica.InteracaoEsperada;
 import Logica.Jogo;
+import java.io.Serializable;
 
 
-public class WaitBegining extends StateAdapter {
+public class WaitBegining extends StateAdapter implements Serializable{
 
     public WaitBegining(Jogo jogo) {
         super(jogo);

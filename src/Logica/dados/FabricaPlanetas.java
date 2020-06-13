@@ -1,8 +1,9 @@
 package Logica.dados;
 
 import Logica.dados.variations.*;
+import java.io.Serializable;
 
-public class FabricaPlanetas {
+public class FabricaPlanetas implements Serializable{
 
     public static Planet criaPlaneta(int tipo){
         

@@ -3,8 +3,9 @@ package Logica.estados;
 import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.variations.MilitaryShip;
+import java.io.Serializable;
 
-public class WaitSpaceStation extends StateAdapter {
+public class WaitSpaceStation extends StateAdapter implements Serializable{
 
     public WaitSpaceStation(Jogo jogo) {
         super(jogo);
@@ -27,28 +28,24 @@ public class WaitSpaceStation extends StateAdapter {
                     if (!getJogo().getUpgradeLimit()) {
                         if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
 
                         } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
 
                         } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
 
                         } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
@@ -64,7 +61,6 @@ public class WaitSpaceStation extends StateAdapter {
 
                             getJogo().getLog().addLog("Recursos Subtraidos e 1 nivel aumentado!");
                             getJogo().getLog().addLog("Upgrade Level: " + getJogo().getSpaceShip().getUpgradeLevel());
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
                         }
                     }
@@ -75,14 +71,12 @@ public class WaitSpaceStation extends StateAdapter {
 
                     if((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0){
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                         return new WaitSpaceStation(getJogo());
                         
                     }else if((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 1) < 0){
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                     }else{
@@ -91,7 +85,6 @@ public class WaitSpaceStation extends StateAdapter {
                         getJogo().getSpaceShip().addWeaponUpgradeLimit();
                         getJogo().getLog().addLog("Recursos Subtraidos e 1 nivel de WeaponSystem aumentado!");
                         getJogo().getLog().addLog("Weapon Upgrade Level: " + getJogo().getSpaceShip().getWeaponUpgradeLimit());
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                         
                     }
@@ -101,14 +94,12 @@ public class WaitSpaceStation extends StateAdapter {
                 case 3:
                     if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo(from)) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos " + from + " suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
                     } else if (getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo(to)) + 1 > getJogo().getSpaceShip().getMaxCargo()) {
 
                         getJogo().getLog().addLog("Nao e preciso gastar recursos, ja tens o cargo pretendido no maximo!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -119,7 +110,6 @@ public class WaitSpaceStation extends StateAdapter {
                         getJogo().getSpaceShip().addCargo(getJogo().getSpaceShip().getSpecificCargo(to), 1);
 
                         getJogo().getLog().addLog("Recurso " + from + " Subtraido e Recurso " + to + " Adicionado!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
 
@@ -128,33 +118,28 @@ public class WaitSpaceStation extends StateAdapter {
                 case 4:
                     if (getJogo().getSpaceShip().getCrewMembers().size() == 4) {
                         getJogo().getLog().addLog("Nao precisas de comprar mais nenhum tripulante!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
                     if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -192,7 +177,6 @@ public class WaitSpaceStation extends StateAdapter {
                                 break;
                         }
 
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
 
@@ -201,33 +185,28 @@ public class WaitSpaceStation extends StateAdapter {
                 case 5:
                     if (getJogo().getSpaceShip().getDrone().getVida() == getJogo().getSpaceShip().getDrone().getMaxVida()) {
                         getJogo().getLog().addLog("Nao precisas de recuperar a vida do Drone, ja esta no maximo!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -241,7 +220,6 @@ public class WaitSpaceStation extends StateAdapter {
 
                         getJogo().getSpaceShip().getDrone().setVida(getJogo().getSpaceShip().getDrone().getMaxVida());
                         getJogo().getLog().addLog("Vida do drone recuperada!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                     }
@@ -251,33 +229,28 @@ public class WaitSpaceStation extends StateAdapter {
                 case 6:
                     if (getJogo().getSpaceShip().getDrone() != null) {
                         getJogo().getLog().addLog("Nao precisas de comprar um novo drone, ja tens um!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -291,7 +264,6 @@ public class WaitSpaceStation extends StateAdapter {
 
                         getJogo().getSpaceShip().getDrone().setVida(getJogo().getSpaceShip().getDrone().getMaxVida());
                         getJogo().getLog().addLog("Drone adicionado com sucesso!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
                     break;
@@ -309,28 +281,24 @@ public class WaitSpaceStation extends StateAdapter {
                     if (!getJogo().getUpgradeLimit()) {
                         if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
 
                         } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
 
                         } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
 
                         } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 3) < 0) {
                             getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
 
                             return new WaitSpaceStation(getJogo());
@@ -346,7 +314,6 @@ public class WaitSpaceStation extends StateAdapter {
 
                             getJogo().getLog().addLog("Recursos Subtraidos e 1 nivel aumentado!");
                             getJogo().getLog().addLog("Upgrade Level: " + getJogo().getSpaceShip().getUpgradeLevel());
-                            getJogo().getLog().printLogs();
                             getJogo().getLog().clearLog();
                         }
                     }
@@ -357,14 +324,12 @@ public class WaitSpaceStation extends StateAdapter {
                 case 2:
                     if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo(from)) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos " + from + " suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
                     } else if (getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo(to)) + 1 > getJogo().getSpaceShip().getMaxCargo()) {
 
                         getJogo().getLog().addLog("Nao e preciso gastar recursos, ja tens o cargo pretendido no maximo!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -375,7 +340,6 @@ public class WaitSpaceStation extends StateAdapter {
                         getJogo().getSpaceShip().addCargo(getJogo().getSpaceShip().getSpecificCargo(to), 1);
 
                         getJogo().getLog().addLog("Recurso " + from + " Subtraido e Recurso " + to + " Adicionado!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
 
@@ -384,33 +348,28 @@ public class WaitSpaceStation extends StateAdapter {
                 case 3:
                     if (getJogo().getSpaceShip().getCrewMembers().size() == 4) {
                         getJogo().getLog().addLog("Nao precisas de comprar mais nenhum tripulante!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
                     if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -448,7 +407,6 @@ public class WaitSpaceStation extends StateAdapter {
                                 break;
                         }
 
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
 
@@ -457,33 +415,28 @@ public class WaitSpaceStation extends StateAdapter {
                 case 4:
                     if (getJogo().getSpaceShip().getDrone().getVida() == getJogo().getSpaceShip().getDrone().getMaxVida()) {
                         getJogo().getLog().addLog("Nao precisas de recuperar a vida do Drone, ja esta no maximo!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 1) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -497,7 +450,6 @@ public class WaitSpaceStation extends StateAdapter {
 
                         getJogo().getSpaceShip().getDrone().setVida(getJogo().getSpaceShip().getDrone().getMaxVida());
                         getJogo().getLog().addLog("Vida do drone recuperada!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                     }
@@ -507,33 +459,28 @@ public class WaitSpaceStation extends StateAdapter {
                 case 5:
                     if (getJogo().getSpaceShip().getDrone() != null) {
                         getJogo().getLog().addLog("Nao precisas de comprar um novo drone, ja tens um!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Preto")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos pretos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Verde")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos verdes suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Vermelho")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos vermelhos suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
 
                     } else if ((getJogo().getSpaceShip().getSpecificCargoValue(getJogo().getSpaceShip().getSpecificCargo("Azul")) - 2) < 0) {
                         getJogo().getLog().addLog("Nao tens recursos azuis suficientes para fazer esta troca!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
 
                         return new WaitSpaceStation(getJogo());
@@ -547,7 +494,6 @@ public class WaitSpaceStation extends StateAdapter {
 
                         getJogo().getSpaceShip().getDrone().setVida(getJogo().getSpaceShip().getDrone().getMaxVida());
                         getJogo().getLog().addLog("Drone adicionado com sucesso!");
-                        getJogo().getLog().printLogs();
                         getJogo().getLog().clearLog();
                     }
                     break;

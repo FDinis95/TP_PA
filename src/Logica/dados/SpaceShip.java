@@ -1,10 +1,11 @@
 package Logica.dados;
 
 import Logica.dados.variations.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class SpaceShip {
+public class SpaceShip implements Serializable{
     
     private int fuelStorage;
     private int shieldCapacity;

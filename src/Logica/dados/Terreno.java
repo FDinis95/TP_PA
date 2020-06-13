@@ -1,6 +1,10 @@
 package Logica.dados;
 
-public class Terreno extends Celula {
+import Logica.dados.variations.AlienAzul;
+import Logica.dados.variations.ResourceAzul;
+import java.io.Serializable;
+
+public class Terreno extends Celula implements Serializable{
 
     private Object[][] terreno;
     private Drone drone;
@@ -9,10 +13,10 @@ public class Terreno extends Celula {
     private Dado dado;
 
     public Terreno() {    
-        this.terreno = new Object[7][7];
-        this.drone = null;
-        this.resource = null;
-        this.alienAttacker = null;
+        this.terreno = new Object[6][6];
+        this.drone = new Drone();
+        this.resource = new ResourceAzul();
+        this.alienAttacker = new AlienAzul();
         this.dado = new Dado();
         
     }
@@ -46,13 +50,13 @@ public class Terreno extends Celula {
     }
     
     public void clearBoard(){
-        this.terreno = new Object[7][7];
+        this.terreno = new Object[6][6];
     }
         
     public Object getEntity(Object o){
         
-        for(int i = 1; i < terreno.length; i++){
-            for(int j = 1; j < terreno[i].length; j++){
+        for(int i = 0; i < terreno.length; i++){
+            for(int j = 0; j < terreno[i].length; j++){
                 if(terreno[i][j] == o)
                     return terreno[i][j];
             }
@@ -61,8 +65,8 @@ public class Terreno extends Celula {
     }
     
     public Object getEntityInPosition(int x, int y) {
-        for (int i = 1; i < terreno.length; i++) {
-            for (int j = 1; j < terreno[i].length; j++) {
+        for (int i = 0; i < terreno.length; i++) {
+            for (int j = 0; j < terreno[i].length; j++) {
                 if(i == x && j == y)
                     if (terreno[i][j] != null)
                         return terreno[i][j];
@@ -73,8 +77,8 @@ public class Terreno extends Celula {
     
     public boolean setEntityReset(int x, int y){
         
-        for(int i = 1; i < terreno.length; i++){
-           for(int j = 1; j < terreno[i].length; j++){
+        for(int i = 0; i < terreno.length; i++){
+           for(int j = 0; j < terreno[i].length; j++){
                if(i == x && j == y){
                    terreno[i][j] = null;
                    
@@ -157,192 +161,253 @@ public class Terreno extends Celula {
         
     public int[] checkBestCourse() {
 
-        int ans[] = new int[2];
-        int droneCoords = drone.getPosX() + drone.getPosY();
-        int vaiEsquerda = Math.abs((alienAttacker.getPosX() + (alienAttacker.getPosY() - 1)) - droneCoords);
-        int vaiDireita =  Math.abs((alienAttacker.getPosX() + (alienAttacker.getPosY() + 1)) - droneCoords);
-        int vaiBaixo = Math.abs(((alienAttacker.getPosX() + 1) + alienAttacker.getPosY()) - droneCoords);
-        int vaiCima = Math.abs(((alienAttacker.getPosX() - 1) + alienAttacker.getPosY()) - droneCoords);
-
+        int ans[] = new int[2];        
         int rand = (int) (Math.random() * 10) + 1;
 
-        if (alienAttacker.getPosX() == 1) { //Nao pode ir para cima, vamos tirar essa hipotese
+        if (alienAttacker.getPosX() == 0 && alienAttacker.getPosY() == 0) { //Nao pode ir para cima ou esquerda, vamos tirar essa hipotese
 
-            if ((vaiEsquerda + vaiBaixo) > (vaiDireita + vaiBaixo)) {
+            if (Math.abs((alienAttacker.getPosX() + 1) - drone.getPosX()) < (Math.abs(alienAttacker.getPosX() - drone.getPosX()))) { //O drone para a Direita
+                ans[0] = alienAttacker.getPosX() + 1;
+                ans[1] = alienAttacker.getPosY();
 
-                //Nao interessa para onde vai (Lado esquerdo ou baixo, as coords sao iguais)
-                if (rand < 5) { // Vai para baixo
+            } else if ((Math.abs(alienAttacker.getPosY() + 1) - drone.getPosY()) < (Math.abs(alienAttacker.getPosY() - drone.getPosY()))) { //O drone está para Baixo
+                ans[0] = alienAttacker.getPosX();
+                ans[1] = alienAttacker.getPosY() + 1;
+
+            } else {
+                if (rand < 5) {
                     ans[0] = alienAttacker.getPosX() + 1;
                     ans[1] = alienAttacker.getPosY();
 
-                } else { // Senao vai para a esquerda
-                    ans[0] = alienAttacker.getPosX();
-                    ans[1] = alienAttacker.getPosY() - 1;
-
-                }
-
-            } else { //Se direita + baixo for menor então faz isto
-
-                if (rand < 5) { // Vai para baixo
-                    ans[0] = alienAttacker.getPosX() + 1;
-                    ans[1] = alienAttacker.getPosY();
-
-                } else { // Senao vai para a direita
+                } else {
                     ans[0] = alienAttacker.getPosX();
                     ans[1] = alienAttacker.getPosY() + 1;
 
                 }
             }
 
-        } else if (alienAttacker.getPosX() == 6) { //Nao pode ir para baixo, vamos tirar essa hipotese
+        } else if (alienAttacker.getPosX() == 5 && alienAttacker.getPosY() == 0) { //Nao pode ir para cima ou para a direita!
 
-            if ((vaiEsquerda + vaiCima) > (vaiDireita + vaiCima)) {
+            if (Math.abs((alienAttacker.getPosX() - 1) - drone.getPosX()) < (Math.abs(alienAttacker.getPosX() - drone.getPosX()))) { //O drone para a Esquerda
+                ans[0] = alienAttacker.getPosX() - 1;
+                ans[1] = alienAttacker.getPosY();
 
-                //Nao interessa para onde vai (Lado esquerdo ou cima, as coords sao iguais)
-                if (rand < 5) { // Vai para cima
+            } else if ((Math.abs(alienAttacker.getPosY() + 1) - drone.getPosY()) < (Math.abs(alienAttacker.getPosY() - drone.getPosY()))) { //O drone está para Baixo
+                ans[0] = alienAttacker.getPosX();
+                ans[1] = alienAttacker.getPosY() + 1;
+
+            } else {
+                if (rand < 5) {
                     ans[0] = alienAttacker.getPosX() - 1;
                     ans[1] = alienAttacker.getPosY();
 
-                } else { // Senao vai para a esquerda
-                    ans[0] = alienAttacker.getPosX();
-                    ans[1] = alienAttacker.getPosY() - 1;
-
-                }
-
-            } else { //Se direita + cima for menor então faz isto
-
-                if (rand < 5) { // Vai para cima
-                    ans[0] = alienAttacker.getPosX() - 1;
-                    ans[1] = alienAttacker.getPosY();
-
-                } else { // Senao vai para a direita
+                } else {
                     ans[0] = alienAttacker.getPosX();
                     ans[1] = alienAttacker.getPosY() + 1;
 
                 }
             }
 
-        } else if (alienAttacker.getPosY() == 1) { //Nao pode ir para a esquerda, vamos tirar essa hipotese
+        } else if (alienAttacker.getPosX() == 5 && alienAttacker.getPosY() == 5) { //Nao pode ir para baixo ou para a direita!
 
-            if ((vaiDireita + vaiCima) > (vaiDireita + vaiBaixo)) {
+            if (Math.abs((alienAttacker.getPosX() - 1) - drone.getPosX()) < (Math.abs(alienAttacker.getPosX() - drone.getPosX()))) { //O drone para a Esquerda
+                ans[0] = alienAttacker.getPosX() - 1;
+                ans[1] = alienAttacker.getPosY();
 
-                //Nao interessa para onde vai (Lado direito ou cima, as coords sao iguais)
-                if (rand < 5) { // Vai para cima
+            } else if ((Math.abs(alienAttacker.getPosY() - 1) - drone.getPosY()) < (Math.abs(alienAttacker.getPosY() - drone.getPosY()))) { //O drone está para Cima
+                ans[0] = alienAttacker.getPosX();
+                ans[1] = alienAttacker.getPosY() - 1;
+
+            } else {
+                if (rand < 5) {
                     ans[0] = alienAttacker.getPosX() - 1;
                     ans[1] = alienAttacker.getPosY();
 
-                } else { // Senao vai para a direita
+                } else {
                     ans[0] = alienAttacker.getPosX();
-                    ans[1] = alienAttacker.getPosY() + 1;
+                    ans[1] = alienAttacker.getPosY() - 1;
 
                 }
+            }
 
-            } else { //Se direito + baixo for menor então faz isto
+        } else if (alienAttacker.getPosX() == 0 && alienAttacker.getPosY() == 5) { //Nao pode ir para baixo ou para a esquerda!
 
-                if (rand < 5) { // Vai para baixo
+            if (Math.abs((alienAttacker.getPosX() + 1) - drone.getPosX()) < (Math.abs(alienAttacker.getPosX() - drone.getPosX()))) { //O drone para a Direita
+                ans[0] = alienAttacker.getPosX() + 1;
+                ans[1] = alienAttacker.getPosY();
+
+            } else if ((Math.abs(alienAttacker.getPosY() - 1) - drone.getPosY()) < (Math.abs(alienAttacker.getPosY() - drone.getPosY()))) { //O drone está para Cima
+                ans[0] = alienAttacker.getPosX();
+                ans[1] = alienAttacker.getPosY() - 1;
+
+            } else {
+                if (rand < 5) {
                     ans[0] = alienAttacker.getPosX() + 1;
                     ans[1] = alienAttacker.getPosY();
 
-                } else { // Senao vai para a direita
+                } else {
+                    ans[0] = alienAttacker.getPosX();
+                    ans[1] = alienAttacker.getPosY() - 1;
+
+                }
+            }
+
+        } else if (alienAttacker.getPosX() == 0) { // Coluna da Esquerda
+
+            if (Math.abs((alienAttacker.getPosX() + 1) - drone.getPosX()) < Math.abs(alienAttacker.getPosX() - drone.getPosX())) { //O drone esta para a direita! 
+                ans[0] = alienAttacker.getPosX() + 1;
+                ans[1] = alienAttacker.getPosY();
+
+            } else {
+
+                if (Math.abs((alienAttacker.getPosY() - 1) - drone.getPosY()) < (Math.abs((alienAttacker.getPosY() + 1) - drone.getPosY()))) { //Drone está para cima
+                    ans[0] = alienAttacker.getPosX();
+                    ans[1] = alienAttacker.getPosY() - 1;
+
+                } else { //Vai para Baixo
                     ans[0] = alienAttacker.getPosX();
                     ans[1] = alienAttacker.getPosY() + 1;
 
                 }
             }
 
-        } else if (alienAttacker.getPosY() == 6) { //Nao pode ir para a direita, vamos tirar essa hipotese
+        } else if (alienAttacker.getPosY() == 0) {
 
-            if ((vaiEsquerda + vaiCima) > (vaiEsquerda + vaiBaixo)) {
+            if (Math.abs((alienAttacker.getPosY() + 1) - drone.getPosY()) < Math.abs(alienAttacker.getPosY() - drone.getPosY())) { //O drone esta para Baixo! 
+                ans[0] = alienAttacker.getPosX();
+                ans[1] = alienAttacker.getPosY() + 1;
 
-                //Nao interessa para onde vai (Lado esquerdo ou cima, as coords sao iguais)
-                if (rand < 5) { // Vai para cima
+            } else {
+
+                if (Math.abs((alienAttacker.getPosX() - 1) - drone.getPosX()) < (Math.abs((alienAttacker.getPosX() + 1) - drone.getPosX()))) { //Drone está para a Esquerda
                     ans[0] = alienAttacker.getPosX() - 1;
                     ans[1] = alienAttacker.getPosY();
 
-                } else { // Senao vai para a esquerda
-                    ans[0] = alienAttacker.getPosX();
-                    ans[1] = alienAttacker.getPosY() - 1;
-
-                }
-
-            } else { //Se esquerda + baixo for menor então faz isto
-
-                if (rand < 5) { // Vai para baixo
+                } else { //Vai para Direita
                     ans[0] = alienAttacker.getPosX() + 1;
                     ans[1] = alienAttacker.getPosY();
-
-                } else { // Senao vai para a esquerda
-                    ans[0] = alienAttacker.getPosX();
-                    ans[1] = alienAttacker.getPosY() - 1;
 
                 }
             }
 
-            //Se chegar aqui não está em nenhum dos limites do campo, vamos verificar todos os pares com as coords do drone:
-            // - ((cima + direita) + (baixo + direita)) -> coords)
-            // - ((cima + esquerda) + (baixo + esquerda)) -> coords)
+        } else if (alienAttacker.getPosX() == 5) {
+
+            if (Math.abs((alienAttacker.getPosX() - 1) - drone.getPosX()) < Math.abs(alienAttacker.getPosX() - drone.getPosX())) { //O drone esta para a Esquerda! 
+                ans[0] = alienAttacker.getPosX() - 1;
+                ans[1] = alienAttacker.getPosY();
+
+            } else {
+
+                if (Math.abs((alienAttacker.getPosY() - 1) - drone.getPosY()) < (Math.abs((alienAttacker.getPosY() + 1) - drone.getPosY()))) { //Drone está para cima
+                    ans[0] = alienAttacker.getPosX();
+                    ans[1] = alienAttacker.getPosY() - 1;
+
+                } else { //Vai para Baixo
+                    ans[0] = alienAttacker.getPosX();
+                    ans[1] = alienAttacker.getPosY() + 1;
+
+                }
+            }
+
+        } else if (alienAttacker.getPosY() == 5) {
+
+            if (Math.abs((alienAttacker.getPosY() - 1) - drone.getPosY()) < Math.abs(alienAttacker.getPosY() - drone.getPosY())) { //O drone esta para Cima! 
+                ans[0] = alienAttacker.getPosX();
+                ans[1] = alienAttacker.getPosY() - 1;
+
+            } else {
+
+                if (Math.abs((alienAttacker.getPosX() - 1) - drone.getPosX()) < (Math.abs((alienAttacker.getPosX() + 1) - drone.getPosX()))) { //Drone está para a Esquerda
+                    ans[0] = alienAttacker.getPosX() - 1;
+                    ans[1] = alienAttacker.getPosY();
+
+                } else { //Vai para Direita
+                    ans[0] = alienAttacker.getPosX() + 1;
+                    ans[1] = alienAttacker.getPosY();
+
+                }
+            }
+            //Senao esta em nenhum dos cantos nem nos limites, entao esta no meio!    
         } else {
 
-            //Isto verifica se  o drone está para cima ou baixo do alien (Apesar de ser extremamente confuso...)
-            if (((vaiCima + vaiDireita) + (vaiCima + vaiEsquerda)) < ((vaiBaixo + vaiDireita) + (vaiBaixo + vaiEsquerda))) {
-                //Se entrar aqui eu sei que o Drone está acima do alien, portanto vou so comparar qual será o melhor caminho aqui.
-                if ((vaiEsquerda + vaiCima) > (vaiDireita + vaiCima)) {
+            if (alienAttacker.getPosX() == drone.getPosX()) { //Estao na mesma coluna
+                if (alienAttacker.getPosY() < drone.getPosY()) { //O drone esta para Baixo
+                    ans[0] = alienAttacker.getPosX();
+                    ans[1] = alienAttacker.getPosY() + 1;
 
-                    //Nao interessa para onde vai (Lado esquerdo ou cima, as coords sao iguais)
-                    if (rand < 5) { // Vai para cima
-                        ans[0] = alienAttacker.getPosX() - 1;
-                        ans[1] = alienAttacker.getPosY();
+                } else { //O drone esta para cima
+                    ans[0] = alienAttacker.getPosX();
+                    ans[1] = alienAttacker.getPosY() - 1;
 
-                    } else { // Senao vai para a esquerda
-                        ans[0] = alienAttacker.getPosX();
-                        ans[1] = alienAttacker.getPosY() - 1;
-
-                    }
-
-                } else { //Se direita + cima for menor então faz isto
-
-                    if (rand < 5) { // Vai para cima
-                        ans[0] = alienAttacker.getPosX() - 1;
-                        ans[1] = alienAttacker.getPosY();
-
-                    } else { // Senao vai para a direita
-                        ans[0] = alienAttacker.getPosX();
-                        ans[1] = alienAttacker.getPosY() + 1;
-
-                    }
                 }
-                //Se entrar neste else, quer dizer que o drone está abaixo do alien!
+
+            } else if (alienAttacker.getPosY() == drone.getPosY()) { //Estao na mesma Linha
+                if (alienAttacker.getPosX() < drone.getPosX()) { //O drone esta para a Direita
+                    ans[0] = alienAttacker.getPosX() + 1;
+                    ans[1] = alienAttacker.getPosY();
+
+                } else { //O drone esta para a Esquerda
+                    ans[0] = alienAttacker.getPosX() - 1;
+                    ans[1] = alienAttacker.getPosY();
+
+                }
+
             } else {
-                if ((vaiEsquerda + vaiBaixo) > (vaiDireita + vaiBaixo)) {
+                if (alienAttacker.getPosX() < drone.getPosX()) { //O drone está para a Direita
 
-                    //Nao interessa para onde vai (Lado esquerdo ou cima, as coords sao iguais)
-                    if (rand < 5) { // Vai para baixo
-                        ans[0] = alienAttacker.getPosX() + 1;
-                        ans[1] = alienAttacker.getPosY();
+                    if (alienAttacker.getPosY() < drone.getPosY()) { //O drone esta para Baixo
+                        if (rand < 5) { //Vai para a Direita
+                            ans[0] = alienAttacker.getPosX() + 1;
+                            ans[1] = alienAttacker.getPosY();
 
-                    } else { // Senao vai para a esquerda
-                        ans[0] = alienAttacker.getPosX();
-                        ans[1] = alienAttacker.getPosY() - 1;
+                        } else { //Vai para Baixo
+                            ans[0] = alienAttacker.getPosX();
+                            ans[1] = alienAttacker.getPosY() + 1;
 
+                        }
+
+                    } else { //O drone esta para Cima
+                        if (rand < 5) { //Vai para a Direita
+                            ans[0] = alienAttacker.getPosX() + 1;
+                            ans[1] = alienAttacker.getPosY();
+
+                        } else { //Vai para Cima
+                            ans[0] = alienAttacker.getPosX();
+                            ans[1] = alienAttacker.getPosY() - 1;
+
+                        }
                     }
 
-                } else { //Se esquerda + baixo for menor então faz isto
+                } else { //O drone esta para a Esquerda
+                    if (alienAttacker.getPosY() < drone.getPosY()) { //O drone esta para Baixo
+                        if (rand < 5) { //Vai para a Esquerda
+                            ans[0] = alienAttacker.getPosX() - 1;
+                            ans[1] = alienAttacker.getPosY();
 
-                    if (rand < 5) { // Vai para baixo
-                        ans[0] = alienAttacker.getPosX() + 1;
-                        ans[1] = alienAttacker.getPosY();
+                        } else { //Vai para Baixo
+                            ans[0] = alienAttacker.getPosX();
+                            ans[1] = alienAttacker.getPosY() + 1;
 
-                    } else { // Senao vai para a direita
-                        ans[0] = alienAttacker.getPosX();
-                        ans[1] = alienAttacker.getPosY() + 1;
+                        }
 
+                    } else { //O drone esta para Cima
+                        if (rand < 5) { //Vai para a Esquerda
+                            ans[0] = alienAttacker.getPosX() - 1;
+                            ans[1] = alienAttacker.getPosY();
+
+                        } else { //Vai para Cima
+                            ans[0] = alienAttacker.getPosX();
+                            ans[1] = alienAttacker.getPosY() - 1;
+
+                        }
                     }
+
                 }
 
             }
 
         }
-
+        
         return ans;
 
     }
@@ -350,83 +415,88 @@ public class Terreno extends Celula {
     public void moveAlien() {
         
         int coords[] = new int [2];
-        
-        setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+
         coords = checkBestCourse();
+        
         if(coords[0] == resource.getPosX() && coords[1] == resource.getPosY()){
             //do nothing
+        }else if(coords[0] == drone.getPosX() && coords[1] == drone.getPosY()){
+            //do nothing
+        }else if(coords[0] == resource.getPosX() && coords[1] == resource.getPosY()){
+            //do nothing       
             
         }else{
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
             alienAttacker.setPosX(coords[0]);
             alienAttacker.setPosY(coords[1]);
             putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
         }
 
-        if (alienAttacker.getPosX() < 1 && alienAttacker.getPosY() == 1) { //Canto Superior Esquerdo
-            alienAttacker.setPosX(1);
-            alienAttacker.setPosY(1);
+        if(alienAttacker.getPosX() < 0  && alienAttacker.getPosY() == 0){ //Canto superior Esquerdo ( direçao: <- )
+            alienAttacker.setPosX(0);
+            alienAttacker.setPosY(0);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() == 0 && alienAttacker.getPosY() < 0){ //Canto Superior Esquerdo ( direçao: ^ )
+            alienAttacker.setPosX(0);
+            alienAttacker.setPosY(0);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() > 5  && alienAttacker.getPosY() == 0){ //Canto superior Direito ( direçao: -> )
+            alienAttacker.setPosX(5);
+            alienAttacker.setPosY(0);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() == 5 && alienAttacker.getPosY() < 0){ //Canto Superior Direito ( direçao: ^ )
+            alienAttacker.setPosX(5);
+            alienAttacker.setPosY(0);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() > 5  && alienAttacker.getPosY() == 5){ //Canto Inferior Direito ( direçao: -> )
+            alienAttacker.setPosX(5);
+            alienAttacker.setPosY(5);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() == 5 && alienAttacker.getPosY() > 5){ //Canto Inferior Direito ( direçao: v )
+            alienAttacker.setPosX(5);
+            alienAttacker.setPosY(5);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() < 0  && alienAttacker.getPosY() == 5){ //Canto Inferior Esquerdo ( direçao: <- )
+            alienAttacker.setPosX(0);
+            alienAttacker.setPosY(5);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() == 0 && alienAttacker.getPosY() > 5){ //Canto Inferior Esquerdo ( direçao: v )
+            alienAttacker.setPosX(0);
+            alienAttacker.setPosY(5);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() < 0){
+            alienAttacker.setPosX(0);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if(alienAttacker.getPosX() > getTerreno().length - 1){
+            alienAttacker.setPosX(5);
+            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
+            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
+            
+        }else if (alienAttacker.getPosY() < 0) {
+            alienAttacker.setPosY(0);
             setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
             putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
 
-        } else if (alienAttacker.getPosX() == 1 && alienAttacker.getPosY() < 1) { //Canto Superior Esquerdo
-            alienAttacker.setPosX(1);
-            alienAttacker.setPosY(1);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() < 1 && alienAttacker.getPosY() == 6) { //Canto Superior Direito
-            alienAttacker.setPosX(1);
-            alienAttacker.setPosY(6);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() == 1 && alienAttacker.getPosY() > 6) { //Canto Superior Direito
-            alienAttacker.setPosX(1);
-            alienAttacker.setPosY(6);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() > 6 && alienAttacker.getPosY() == 6) { //Canto Inferior Direito
-            alienAttacker.setPosX(6);
-            alienAttacker.setPosY(6);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() == 6 && alienAttacker.getPosY() > 6) { //Canto Inferior Direito
-            alienAttacker.setPosX(6);
-            alienAttacker.setPosY(6);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() > 6 && alienAttacker.getPosY() == 1) { //Canto Inferior Esquerdo
-            alienAttacker.setPosX(6);
-            alienAttacker.setPosY(1);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() == 6 && alienAttacker.getPosY() < 1) { //Canto Inferior Esquerdo
-            alienAttacker.setPosX(6);
-            alienAttacker.setPosY(1);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() <= 1) {
-            alienAttacker.setPosX(1);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosX() >= getTerreno().length - 1) {
-            alienAttacker.setPosX(6);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosY() <= 1) {
-            alienAttacker.setPosY(1);
-            setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
-            putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
-
-        } else if (alienAttacker.getPosY() >= getTerreno().length - 1) {
-            alienAttacker.setPosY(6);
+        } else if (alienAttacker.getPosY() > getTerreno().length - 1) {
+            alienAttacker.setPosY(5);
             setEntityReset(alienAttacker.getPosX(), alienAttacker.getPosY());
             putEntity(alienAttacker, alienAttacker.getPosX(), alienAttacker.getPosY());
 
@@ -445,71 +515,71 @@ public class Terreno extends Celula {
         drone.setPosY(drone.getPosY() + moveY);
         putEntity(drone, drone.getPosX(), drone.getPosY());
 
-        if (drone.getPosX() < 1 && drone.getPosY() == 1) { //Canto Superior Esquerdo
-            drone.setPosX(1);
-            drone.setPosY(1);
+        if(drone.getPosX() <= 0  && drone.getPosY() == 0){ //Canto superior Esquerdo ( direçao: <- )
+            drone.setPosX(0);
+            drone.setPosY(0);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() == 0 && drone.getPosY() <= 0){ //Canto Superior Esquerdo ( direçao: ^ )
+            drone.setPosX(0);
+            drone.setPosY(0);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() >= 5  && drone.getPosY() == 0){ //Canto superior Direito ( direçao: -> )
+            drone.setPosX(5);
+            drone.setPosY(0);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() == 5 && drone.getPosY() <= 0){ //Canto Superior Direito ( direçao: ^ )
+            drone.setPosX(5);
+            drone.setPosY(0);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() >= 5  && drone.getPosY() == 5){ //Canto Inferior Direito ( direçao: -> )
+            drone.setPosX(5);
+            drone.setPosY(5);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() == 5 && drone.getPosY() >= 5){ //Canto Inferior Direito ( direçao: v )
+            drone.setPosX(5);
+            drone.setPosY(5);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() <= 0  && drone.getPosY() == 5){ //Canto Inferior Esquerdo ( direçao: <- )
+            drone.setPosX(0);
+            drone.setPosY(5);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() == 0 && drone.getPosY() >= 5){ //Canto Inferior Esquerdo ( direçao: v )
+            drone.setPosX(0);
+            drone.setPosY(5);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() <= 0){
+            drone.setPosX(0);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if(drone.getPosX() > getTerreno().length - 1){
+            drone.setPosX(5);
+            setEntityReset(drone.getPosX(), drone.getPosY());
+            putEntity(drone, drone.getPosX(), drone.getPosY());
+            
+        }else if (drone.getPosY() <= 0) {
+            drone.setPosY(0);
             setEntityReset(drone.getPosX(), drone.getPosY());
             putEntity(drone, drone.getPosX(), drone.getPosY());
 
-        } else if (drone.getPosX() == 1 && drone.getPosY() < 1) { //Canto Superior Esquerdo
-            drone.setPosX(1);
-            drone.setPosY(1);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() < 1 && drone.getPosY() == 6) { //Canto Superior Direito
-            drone.setPosX(1);
-            drone.setPosY(6);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() == 1 && drone.getPosY() > 6) { //Canto Superior Direito
-            drone.setPosX(1);
-            drone.setPosY(6);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() > 6 && drone.getPosY() == 6) { //Canto Inferior Direito
-            drone.setPosX(6);
-            drone.setPosY(6);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() == 6 && drone.getPosY() > 6) { //Canto Inferior Direito
-            drone.setPosX(6);
-            drone.setPosY(6);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() > 6 && drone.getPosY() == 1) { //Canto Inferior Esquerdo
-            drone.setPosX(6);
-            drone.setPosY(1);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() == 6 && drone.getPosY() < 1) { //Canto Inferior Esquerdo
-            drone.setPosX(6);
-            drone.setPosY(1);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() <= 1) {
-            drone.setPosX(1);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosX() >= getTerreno().length - 1) {
-            drone.setPosX(6);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosY() <= 1) {
-            drone.setPosY(1);
-            setEntityReset(drone.getPosX(), drone.getPosY());
-            putEntity(drone, drone.getPosX(), drone.getPosY());
-
-        } else if (drone.getPosY() >= getTerreno().length - 1) {
-            drone.setPosY(6);
+        } else if (drone.getPosY() > getTerreno().length - 1) {
+            drone.setPosY(5);
             setEntityReset(drone.getPosX(), drone.getPosY());
             putEntity(drone, drone.getPosX(), drone.getPosY());
 
@@ -526,138 +596,136 @@ public class Terreno extends Celula {
     
     public boolean checkFight() {
         //Verificaçao se o drone está ao lado do alien
-        int droneX = drone.getPosX();
-        int droneY = drone.getPosY();
 
-        if (droneX >= getTerreno().length - 1) { //Verificar se esta no lado direito
+        if (drone.getPosX() >= getTerreno().length - 1) { //Verificar se esta no lado direito
 
-            if (droneX == 6 && droneY == 1) { //Canto superior direito
+            if (drone.getPosX() == 5 && drone.getPosY() == 0) { //Canto superior direito
 
-                if (terreno[droneX - 1][droneY] == alienAttacker) { //Verifica à esquerda
+                if (terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker) { //Verifica à esquerda
                     return true;
 
-                } else return terreno[droneX][droneY + 1] == alienAttacker; //Verifica abaixo              
+                } else return terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker; //Verifica abaixo              
                 
-            } else if (droneX == 6 && droneY == 6) { //Canto Inferior Direito
+            } else if (drone.getPosX() == 5 && drone.getPosY() == 5) { //Canto Inferior Direito
 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else return terreno[droneX - 1][droneY] == alienAttacker; //Verifica à esquerda     
+                } else return terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker; //Verifica à esquerda     
                 
             } else { //Resto da coluna 6
                 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else if (terreno[droneX - 1][droneY] == alienAttacker) { //Verifica à esquerda
+                } else if (terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker) { //Verifica à esquerda
                     return true;
 
-                } else return terreno[droneX][droneY + 1] == alienAttacker; //Verifica abaixo
+                } else return terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker; //Verifica abaixo
 
             }
 
-        } else if (droneY >= getTerreno().length - 1) { //Verificar se esta abaixo
+        } else if (drone.getPosY() >= getTerreno().length - 1) { //Verificar se esta abaixo
 
-            if (droneX == 6 && droneY == 6) { //Canto Inferior Direito
+            if (drone.getPosX() == 5 && drone.getPosY() == 5) { //Canto Inferior Direito
 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else return terreno[droneX - 1][droneY] == alienAttacker; //Verifica à esquerda
+                } else return terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker; //Verifica à esquerda
     
-            } else if (droneX == 1 && droneY == 6) { //Canto Inferior Esquerdo
+            } else if (drone.getPosX() == 0 && drone.getPosY() == 5) { //Canto Inferior Esquerdo
 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else return terreno[droneX + 1][droneY] == alienAttacker; //Verifica à direita
+                } else return terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker; //Verifica à direita
 
             } else { //Resto da linha 6
 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else if (terreno[droneX + 1][droneY] == alienAttacker) { //Verifica à direita
+                } else if (terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker) { //Verifica à direita
                     return true;
 
-                } else return terreno[droneX - 1][droneY] == alienAttacker; //Verifica à esquerda
+                } else return terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker; //Verifica à esquerda
   
             }
 
-        } else if (droneX == 1) { //Verificar se esta no lado esquerdo
+        } else if (drone.getPosX() == 0) { //Verificar se esta no lado esquerdo
 
-            if (droneX == 1 && droneY == 6) { //Canto Inferior Esquerdo
+            if (drone.getPosX() == 0 && drone.getPosY() == 5) { //Canto Inferior Esquerdo
 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else return terreno[droneX + 1][droneY] == alienAttacker; //Verifica à direita
+                } else return terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker; //Verifica à direita
   
-            } else if (droneX == 1 && droneY == 1) { //Canto Superior Esquerdo
+            } else if (drone.getPosX() == 0 && drone.getPosY() == 0) { //Canto Superior Esquerdo
 
-                if (terreno[droneX][droneY + 1] == alienAttacker) { //Verifica abaixo
+                if (terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker) { //Verifica abaixo
                     return true;
 
-                } else return terreno[droneX + 1][droneY] == alienAttacker; //Verifica à direita
+                } else return terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker; //Verifica à direita
    
             } else { //Resto da coluna 1
 
-                if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+                if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                     return true;
 
-                } else if (terreno[droneX][droneY + 1] == alienAttacker) { //Verifica abaixo
+                } else if (terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker) { //Verifica abaixo
                     return true;
 
-                } else return terreno[droneX + 1][droneY] == alienAttacker; //Verifica à direita  
+                } else return terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker; //Verifica à direita  
             }
 
-        } else if (droneX == 1) { //Verificar se esta no topo
+        } else if (drone.getPosY() == 0) { //Verificar se esta no topo
 
-            if (droneX == 1 && droneY == 1) { //Canto Superior Esquerdo
+            if (drone.getPosX() == 0 && drone.getPosY() == 0) { //Canto Superior Esquerdo
 
-                if (terreno[droneX][droneY + 1] == alienAttacker) { //Verifica abaixo
+                if (terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker) { //Verifica abaixo
                     return true;
 
-                } else return terreno[droneX + 1][droneY] == alienAttacker; //Verifica à direita
+                } else return terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker; //Verifica à direita
    
-            } else if (droneX == 6 && droneY == 1) { //Canto superior direito
+            } else if (drone.getPosX() == 5 && drone.getPosY() == 0) { //Canto superior direito
 
-                if (terreno[droneX - 1][droneY] == alienAttacker) { //Verifica à esquerda
+                if (terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker) { //Verifica à esquerda
                     return true;
 
-                } else return terreno[droneX][droneY + 1] == alienAttacker; //Verifica abaixo
+                } else return terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker; //Verifica abaixo
   
             } else { //Resto da linha 1
 
-                if (terreno[droneX - 1][droneY] == alienAttacker) { //Verifica à esquerda
+                if (terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker) { //Verifica à esquerda
                     return true;
 
-                } else if (terreno[droneX][droneY + 1] == alienAttacker) { //Verifica abaixo
+                } else if (terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker) { //Verifica abaixo
                     return true;
 
-                } else return terreno[droneX + 1][droneY] == alienAttacker; //Verifica à direita   
+                } else return terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker; //Verifica à direita   
             }
             
         }else{
-            if (terreno[droneX][droneY + 1] == alienAttacker) { //Verifica abaixo
+            if (terreno[drone.getPosX()][drone.getPosY() + 1] == alienAttacker) { //Verifica abaixo
                 return true;
                     
-            }else if(terreno[droneX + 1][droneY] == alienAttacker){ //Verifica à direita
+            }else if(terreno[drone.getPosX() + 1][drone.getPosY()] == alienAttacker){ //Verifica à direita
                 return true;
                 
-            }else if (terreno[droneX][droneY - 1] == alienAttacker) { //Verifica acima
+            }else if (terreno[drone.getPosX()][drone.getPosY() - 1] == alienAttacker) { //Verifica acima
                 return true;
                     
-            }else return terreno[droneX - 1][droneY] == alienAttacker; //Verifica à esquerda         
+            }else return terreno[drone.getPosX() - 1][drone.getPosY()] == alienAttacker; //Verifica à esquerda         
         }
     }
     
     @Override
     public boolean putEntity(Alien a, int x, int y){
        
-       for(int i = 1; i < terreno.length; i++){
-           for(int j = 1; j < terreno[i].length; j++){
+       for(int i = 0; i < terreno.length; i++){
+           for(int j = 0; j < terreno[i].length; j++){
                if(i == x && j == y){
                    if (terreno[i][j] == null) {
                        terreno[i][j] = a;
@@ -726,12 +794,12 @@ public class Terreno extends Celula {
                 "\nposY: " + alienAttacker.getPosY() + "\t\t\tposY: " + drone.getPosY() + "\t\tposY: " + resource.getPosY() +
                 "\nVida: " + alienAttacker.getVida() + "\t\t\tVida: " + + drone.getVida() + "\n\n";
         
-        for(int i = 1; i < terreno.length; i++){
-            for(int j = 1; j < terreno[i].length; j++){
-                if(terreno[i][j] == null ){
+        for(int i = 0; i < terreno.length; i++){
+            for(int j = 0; j < terreno[i].length ; j++){
+                if(terreno[j][i] == null ){
                     s += " - ";
                 }else
-                    s += " " + terreno[i][j] + " ";
+                    s += " " + terreno[j][i] + " ";
                 
             }
             s += "\n";

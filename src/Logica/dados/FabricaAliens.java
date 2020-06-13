@@ -1,8 +1,9 @@
 package Logica.dados;
 
 import Logica.dados.variations.*;
+import java.io.Serializable;
 
-public class FabricaAliens {
+public class FabricaAliens implements Serializable{
 
     public static Alien criaAlien(int tipo){
         switch (tipo) {

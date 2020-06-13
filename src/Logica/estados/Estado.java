@@ -2,7 +2,7 @@ package Logica.estados;
 
 import Logica.InteracaoEsperada;
 
-public interface Estado {
+public interface Estado{
     
     //WaitBeginning
     Estado setup();
@@ -13,6 +13,7 @@ public interface Estado {
     //WaitMove
     Estado move();
     Estado move(int move, int sector, int planet);
+    Estado continua();
     
     //WaitPlanetSector
     Estado useRecursos(int valor, String from, String to);

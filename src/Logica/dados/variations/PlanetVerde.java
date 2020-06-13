@@ -1,10 +1,10 @@
 package Logica.dados.variations;
 
-import Logica.dados.FabricaAliens;
 import Logica.dados.FabricaResources;
 import Logica.dados.Planet;
+import java.io.Serializable;
 
-public class PlanetVerde extends Planet {
+public class PlanetVerde extends Planet implements Serializable{
 
     public PlanetVerde() {
         

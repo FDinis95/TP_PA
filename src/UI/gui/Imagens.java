@@ -25,18 +25,26 @@ public class Imagens {
         imagens.put(Constants.WEAPON_CREW, new Image(Resources.getImageResourceFile(Constants.WEAPON_CREW)));
         imagens.put(Constants.CARGO_CREW, new Image(Resources.getImageResourceFile(Constants.CARGO_CREW)));
         imagens.put(Constants.EVENTS, new Image(Resources.getImageResourceFile(Constants.EVENTS)));
-        imagens.put(Constants.MILITARY_CARGO_HOLD, new Image(Resources.getImageResourceFile(Constants.MILITARY_CARGO_HOLD)));
-        imagens.put(Constants.MILITARY_FUEL_SYSTEM, new Image(Resources.getImageResourceFile(Constants.MILITARY_FUEL_SYSTEM)));
-        imagens.put(Constants.MILITARY_WEAPON_SHIELD, new Image(Resources.getImageResourceFile(Constants.MILITARY_WEAPON_SHIELD)));
-        imagens.put(Constants.MINING_CARGO_HOLD, new Image(Resources.getImageResourceFile(Constants.MINING_CARGO_HOLD)));
-        imagens.put(Constants.MINING_FUEL_SYSTEM, new Image(Resources.getImageResourceFile(Constants.MINING_FUEL_SYSTEM)));
-        imagens.put(Constants.MINING_WEAPON_SHIELD, new Image(Resources.getImageResourceFile(Constants.MINING_WEAPON_SHIELD)));
-        imagens.put(Constants.NAV1, new Image(Resources.getImageResourceFile(Constants.NAV1)));
-        imagens.put(Constants.NAV2_3, new Image(Resources.getImageResourceFile(Constants.NAV2_3)));
-        imagens.put(Constants.NAV4_5, new Image(Resources.getImageResourceFile(Constants.NAV4_5)));
-        imagens.put(Constants.NAV6, new Image(Resources.getImageResourceFile(Constants.NAV6)));
         imagens.put(Constants.REFERENCE_CARD, new Image(Resources.getImageResourceFile(Constants.REFERENCE_CARD)));
         imagens.put(Constants.TERRAIN, new Image(Resources.getImageResourceFile(Constants.TERRAIN)));
+        imagens.put(Constants.DIE1, new Image(Resources.getImageResourceFile(Constants.DIE1)));
+        imagens.put(Constants.DIE2, new Image(Resources.getImageResourceFile(Constants.DIE2)));
+        imagens.put(Constants.DIE3, new Image(Resources.getImageResourceFile(Constants.DIE3)));
+        imagens.put(Constants.DIE4, new Image(Resources.getImageResourceFile(Constants.DIE4)));
+        imagens.put(Constants.DIE5, new Image(Resources.getImageResourceFile(Constants.DIE5)));
+        imagens.put(Constants.DIE6, new Image(Resources.getImageResourceFile(Constants.DIE6)));
+        imagens.put(Constants.DIE_ANIMATION, new Image(Resources.getImageResourceFile(Constants.DIE_ANIMATION)));
+        imagens.put(Constants.GREEN_RESOURCE, new Image(Resources.getImageResourceFile(Constants.GREEN_RESOURCE)));
+        imagens.put(Constants.BLUE_RESOURCE, new Image(Resources.getImageResourceFile(Constants.BLUE_RESOURCE)));
+        imagens.put(Constants.BLACK_RESOURCE, new Image(Resources.getImageResourceFile(Constants.BLACK_RESOURCE)));
+        imagens.put(Constants.RED_RESOURCE, new Image(Resources.getImageResourceFile(Constants.RED_RESOURCE)));
+        imagens.put(Constants.ARTIFACT_RESOURCE, new Image(Resources.getImageResourceFile(Constants.ARTIFACT_RESOURCE)));
+        imagens.put(Constants.NO_RESOURCE, new Image(Resources.getImageResourceFile(Constants.NO_RESOURCE)));
+        imagens.put(Constants.ALIEN, new Image(Resources.getImageResourceFile(Constants.ALIEN)));
+        imagens.put(Constants.DESERT_TILE, new Image(Resources.getImageResourceFile(Constants.DESERT_TILE)));
+        imagens.put(Constants.VICTORY, new Image(Resources.getImageResourceFile(Constants.VICTORY)));
+        imagens.put(Constants.DEFEAT, new Image(Resources.getImageResourceFile(Constants.DEFEAT)));
+        imagens.put(Constants.INITIAL, new Image(Resources.getImageResourceFile(Constants.INITIAL)));
         
     }
 

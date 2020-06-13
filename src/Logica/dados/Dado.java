@@ -1,9 +1,8 @@
 package Logica.dados;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-
-public class Dado {
+public class Dado implements Serializable{
 
     private int diceValue;
 

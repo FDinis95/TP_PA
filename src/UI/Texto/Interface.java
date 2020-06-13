@@ -2,7 +2,6 @@ package UI.Texto;
 
 import Logica.*;
 import Logica.dados.variations.MilitaryShip;
-import Logica.estados.*;
 import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.IOException;
 import java.util.Scanner;
@@ -152,11 +151,12 @@ public class Interface {
             System.out.println("\nEscolha uma das seguintes opcoes!");
             System.out.println("1 - Escolher Evento ao calhas");
             System.out.println("2 - Escolher Evento por ID");
+            System.out.println("3 - Continuar");
             System.out.print(">> ");
             
             choice = scanner.nextInt();
             
-        }while(choice != 1 && choice != 2);
+        }while(choice != 1 && choice != 2 && choice != 3);
         
         switch(choice){
             case 1:
@@ -173,6 +173,12 @@ public class Interface {
                 }while(choice < 1 && choice > 6);                
                 
                 ob.rollD6(choice);
+                break;
+                
+            case 3:
+                ob.continua();
+                break;
+                
         }
 
     }
@@ -453,16 +459,16 @@ public class Interface {
 
                 switch (scanner.nextInt()) {
                     case 1:
-                        ob.moveToResource(-1, 0);
+                        ob.moveToResource(0, -1);
                         break;
                     case 2:
-                        ob.moveToResource(1, 0);
-                        break;
-                    case 3:
                         ob.moveToResource(0, 1);
                         break;
+                    case 3:
+                        ob.moveToResource(1, 0);
+                        break;
                     default:
-                        ob.moveToResource(0, -1);
+                        ob.moveToResource(-1, 0);
                         break;
 
                 }

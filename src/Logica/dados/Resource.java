@@ -1,6 +1,8 @@
 package Logica.dados;
 
-public abstract class Resource {
+import java.io.Serializable;
+
+public abstract class Resource implements Serializable{
    
     private String tipo;
     private int posX, posY;

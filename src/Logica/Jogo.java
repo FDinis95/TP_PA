@@ -1,11 +1,15 @@
 package Logica;
 
 import Logica.dados.*;
+import Logica.dados.variations.MilitaryShip;
+import Logica.dados.variations.PlanetAzul;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Jogo {
+public class Jogo implements Serializable{
 
     private boolean over; //Verifica o fim do jogo
+    private boolean victory;
     private boolean wasPlanet; //Verifica se foi um planeta ou evento
     private boolean fightOver; //Verifica se a luta contra um alien acabou
     private boolean upgradeLimit; //Limitar o upgrade do Cargo
@@ -37,22 +41,27 @@ public class Jogo {
     // - Artifacts
     private SpaceShip spaceShip;
 
-    public Jogo() {}
+    public Jogo() {
+        initializeSetup();
+    }
     
     public void initializeSetup(){
         
         dice = new Dado();
         log = new Log();
         over = false;
+        victory = false;
         fightOver = false;
         wasPlanet = false; //Inicialmente é sempre um planete
         upgradeLimit = false;
         referencia = new Reference();
-        spaceStation = null;
+        spaceStation = new SpaceStation();
+        spaceShip = new MilitaryShip();
+        planeta = new PlanetAzul();
         
         
-        initialDroneX = 0;
-        initialDroneY = 0;
+        initialDroneX = -1;
+        initialDroneY = -1;
         
     }
 
@@ -159,6 +168,15 @@ public class Jogo {
     public void setGameOver(){
         over = true;
         
+    }
+    
+    public boolean getVictory(){
+        return victory;
+        
+    }
+    
+    public void setVictory(){
+        victory = true;
     }
     
 }

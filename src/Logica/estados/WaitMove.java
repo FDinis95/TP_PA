@@ -4,8 +4,9 @@ import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.FabricaPlanetas;
 import Logica.dados.SpaceStation;
+import java.io.Serializable;
 
-public class WaitMove extends StateAdapter {
+public class WaitMove extends StateAdapter implements Serializable{
 
     public WaitMove(Jogo jogo) {
         super(jogo);
@@ -15,8 +16,14 @@ public class WaitMove extends StateAdapter {
     //Move Feito Manualmente!
     @Override
     public Estado move(int move, int sector, int planet){
-        
-        if (sector <= 3){
+        if(getJogo().getWasPlanet()){
+            
+            getJogo().getSpaceShip().subFuel(1);
+
+            return new WaitEvent(getJogo());
+            
+        }else{
+            if (sector == 2){
             getJogo().getLog().addLog("Planeta com SpaceStation!");
             getJogo().setPlaneta(FabricaPlanetas.criaPlaneta(planet));
             getJogo().getPlaneta().setSS(getJogo().getSpaceShip());
@@ -30,23 +37,48 @@ public class WaitMove extends StateAdapter {
             getJogo().setSpaceStation(null);
             
         }
-        
-        getJogo().setWasPlanet(true);
+
         getJogo().getLog().addLog("Resultado final:");
         
         if(move == 1){
             getJogo().getLog().addLog("Tipo de Movimento: Normal");
-        }else
+            getJogo().getSpaceShip().subFuel(1);
+            
+        }else{
             getJogo().getLog().addLog("Tipo de Movimento: Buraco Negro");
+            if (getJogo().getSpaceShip().getCrewMembers().size() == 3) { //Não existe o Shields Officer
+                    if (getJogo().getSpaceShip().getShieldCapacity() == 0) { //Não tem shield suficiente, morre um membro
+                        getJogo().getSpaceShip().subFuel(4);
+                        getJogo().getSpaceShip().getCrewMembers().remove(getJogo().getSpaceShip().getCrewMembers().size() - 1);
+                    }
+
+                    getJogo().getSpaceShip().subFuel(4);
+                    getJogo().getSpaceShip().subShield(4);
+
+                } else { //Existe um Shields Officer
+                    if (getJogo().getSpaceShip().getShieldCapacity() == 0) {
+                        getJogo().getSpaceShip().subFuel(3);
+                        getJogo().getSpaceShip().getCrewMembers().remove(getJogo().getSpaceShip().getCrewMembers().size() - 1);
+
+                    }else{
+                       getJogo().getSpaceShip().subFuel(3);
+                        getJogo().getSpaceShip().subShield(2);
+                        
+                    }
+                }
+        }
         
         if(sector == 1){
             getJogo().getLog().addLog("Tipo de Sector: Branco");
         }else
             getJogo().getLog().addLog("Tipo de Sector: Vermelho");
         
-        getJogo().getLog().addLog("Tipo de Planeta: " + getJogo().getPlaneta().getTipo());
-        getJogo().getLog().clearLog();
+            getJogo().getLog().addLog("Tipo de Planeta: " + getJogo().getPlaneta().getTipo());
+            getJogo().getLog().clearLog();
         
+        }
+        
+        getJogo().setWasPlanet(true);
         return new WaitPlanetSector(getJogo());
     }
 
@@ -125,9 +157,7 @@ public class WaitMove extends StateAdapter {
 
                     }
                 }
-                
-                getJogo().setWasPlanet(true);
-                
+                             
                 getJogo().getLog().addLog("Resultado do tipo de sector: \n" + getJogo().getPlaneta() + "\n");
                 getJogo().getLog().clearLog();
 

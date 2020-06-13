@@ -1,8 +1,9 @@
 package Logica.dados;
 
 import Logica.dados.eventos.*;
+import java.io.Serializable;
 
-public class FabricaEventos {
+public class FabricaEventos implements Serializable{
 
     public static Events criaEvento(int ID){
         

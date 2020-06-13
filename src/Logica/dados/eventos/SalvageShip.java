@@ -3,9 +3,10 @@ package Logica.dados.eventos;
 import Logica.Jogo;
 import Logica.dados.Events;
 import Logica.dados.Resource;
+import java.io.Serializable;
 import java.util.Random;
 
-public class SalvageShip extends Events {
+public class SalvageShip extends Events implements Serializable{
 
     public SalvageShip() {
         setID(2);

@@ -2,8 +2,9 @@ package Logica.dados.eventos;
 
 import Logica.Jogo;
 import Logica.dados.Events;
+import java.io.Serializable;
 
-public class FuelLoss extends Events {
+public class FuelLoss extends Events implements Serializable{
 
     public FuelLoss() {
         setID(4);

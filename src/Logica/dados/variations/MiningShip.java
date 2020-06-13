@@ -2,8 +2,9 @@ package Logica.dados.variations;
 
 import Logica.dados.Resource;
 import Logica.dados.SpaceShip;
+import java.io.Serializable;
 
-public class MiningShip extends SpaceShip {
+public class MiningShip extends SpaceShip implements Serializable{
 
     public MiningShip() {
         super();

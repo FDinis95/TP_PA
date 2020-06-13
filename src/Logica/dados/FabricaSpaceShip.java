@@ -1,9 +1,10 @@
 package Logica.dados;
 
 import Logica.dados.variations.*;
+import java.io.Serializable;
 
 
-public class FabricaSpaceShip {
+public class FabricaSpaceShip implements Serializable{
     
     public static SpaceShip criaSpaceShip(int i){
         

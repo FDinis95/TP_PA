@@ -1,8 +1,9 @@
 package Logica;
 
 import Logica.estados.*;
+import java.io.Serializable;
 
-public class MaquinaEstados {
+public class MaquinaEstados implements Serializable{
 
     private Jogo jogo;
     private Estado estado;
@@ -80,6 +81,11 @@ public class MaquinaEstados {
     
     public void move(int move, int sector, int planet){
         setEstado(estado.move(move, sector, planet));
+        
+    }
+    
+    public void continua(){
+        setEstado(estado.continua());
         
     }
     

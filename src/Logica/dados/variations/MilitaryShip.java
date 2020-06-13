@@ -2,8 +2,9 @@ package Logica.dados.variations;
 
 import Logica.dados.Resource;
 import Logica.dados.SpaceShip;
+import java.io.Serializable;
 
-public class MilitaryShip extends SpaceShip {
+public class MilitaryShip extends SpaceShip implements Serializable{
 
     
     

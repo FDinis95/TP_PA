@@ -4,8 +4,8 @@ import Logica.InteracaoEsperada;
 import Logica.ObservableGame;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Timer;
-import java.util.TimerTask;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -20,6 +20,7 @@ import javafx.util.Duration;
 public class WaitBeginningPane extends BorderPane {
     
     private ObservableGame modeloObs;
+    private ImageView spaceShip = new ImageView(Imagens.getImagem(Constants.ROCKET_SHIP));
     
     public WaitBeginningPane(ObservableGame ob){
         
@@ -41,14 +42,12 @@ public class WaitBeginningPane extends BorderPane {
         //HANDLES
         Button start = new Button("Start Game");
         Button exit = new Button("Exit Game");
-        ImageView spaceShip = new ImageView(Imagens.getImagem(Constants.ROCKET_SHIP));
         HBox textBox = new HBox(10);
         HBox image = new HBox();
         
         //ImageView Foguete
         spaceShip.setFitWidth(400);
         spaceShip.setFitHeight(400);
-
         
         //HBox da opção
         textBox.setAlignment(Pos.TOP_CENTER);
@@ -64,26 +63,25 @@ public class WaitBeginningPane extends BorderPane {
         setBottom(textBox);
         setCenter(image);
         
-        
         //Handle do botão Start
         start.setOnAction((ActionEvent event) -> {
-//            moveRocket(spaceShip); //VOLTAR A METER DEPOIS
-            
-            Timer time = new Timer();
-            time.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                  modeloObs.setup();
-                  
-                }
-            }, 0/*3700*/);
-            
+
+//            Timeline timeline = new Timeline();
+//            timeline.getKeyFrames().add(
+//                    new KeyFrame(Duration.seconds(3), (ActionEvent event1) -> {
+//                        
+                        modeloObs.setup();
+//                    }));
+//            timeline.playFromStart();
+//            moveRocket(spaceShip);
+////
         });
         
         //Handle do botão Exit
         exit.setOnAction((ActionEvent event) -> {
             System.exit(0);
         });
+
         
     }
     
@@ -101,8 +99,8 @@ public class WaitBeginningPane extends BorderPane {
         MediaPlayer media = new MediaPlayer(Sounds.getSom(Constants.ROCKET_LAUNCH));
         
         //Translação do foguete a subir (Tecnicamente ainda existe no plano, mas esta escondido pela janela)
-        moveRocketY.setByY(-500);
-        moveRocketY.setRate(0.5);
+        moveRocketY.setByY(-700);
+        moveRocketY.setRate(0.7);
         moveRocketY.setDuration(Duration.seconds(2));
         moveRocketY.setNode(rocket);
         

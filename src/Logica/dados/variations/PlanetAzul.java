@@ -2,9 +2,10 @@ package Logica.dados.variations;
 
 import Logica.dados.*;
 import Logica.dados.Planet;
+import java.io.Serializable;
 
 
-public class PlanetAzul extends Planet {
+public class PlanetAzul extends Planet implements Serializable{
     
     public PlanetAzul() {
         

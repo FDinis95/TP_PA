@@ -2,8 +2,9 @@ package Logica.dados.eventos;
 
 import Logica.Jogo;
 import Logica.dados.Events;
+import java.io.Serializable;
 
-public class CrewDeath extends Events {
+public class CrewDeath extends Events implements Serializable{
 
     public CrewDeath() {
         setID(1);

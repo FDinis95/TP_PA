@@ -1,6 +1,8 @@
 package Logica.dados;
 
+import java.io.Serializable;
 
-public class Reference {
+
+public class Reference implements Serializable{
 
 }

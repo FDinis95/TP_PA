@@ -1,8 +1,9 @@
 package Logica.estados;
 
 import Logica.Jogo;
+import java.io.Serializable;
 
-public abstract class StateAdapter implements Estado {
+public abstract class StateAdapter implements Estado, Serializable {
     
     private Jogo jogo;
 
@@ -36,6 +37,12 @@ public abstract class StateAdapter implements Estado {
     @Override
     public Estado move(int move, int sector, int planet){
         return this;
+    }
+    
+    @Override
+    public Estado continua(){
+        return this;
+        
     }
 
     @Override

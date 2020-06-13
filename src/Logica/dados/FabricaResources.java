@@ -1,9 +1,10 @@
 package Logica.dados;
 
 import Logica.dados.variations.*;
+import java.io.Serializable;
 
 
-public class FabricaResources {
+public class FabricaResources implements Serializable{
 
     public static Resource criaResource(int tipo){
         

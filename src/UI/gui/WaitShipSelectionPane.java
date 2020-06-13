@@ -44,8 +44,7 @@ public class WaitShipSelectionPane extends BorderPane {
         
         militaryOption.setOnAction((event) -> {
             modeloObs.selectShip(1);
-            
-            
+     
         });
         
         miningOption.setOnAction((event) -> {

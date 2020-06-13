@@ -5,25 +5,12 @@
             <url>src/Logica/ObservableGame.java</url>
             <bookmark id="1">
                 <name/>
-                <line>141</line>
+                <line>201</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="PA">
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/Logica/dados/FabricaSpaceShip.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/Images/Military_Cargo_Hold.png</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/WaitBeginningPane.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/Images/Military_Weapon_Shield.png</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/WaitMovePane.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/Logica/ObservableGame.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/Logica/estados/WaitShipSelection.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/Root.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/WaitSpaceStationPane.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/Logica/estados/WaitSpaceStation.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/WaitShipSelectionPane.java</file>
-            <file>file:/D:/Escola/2º%20Ano/2019-2020/2º%20Semestre/PA/TP/PlanetBound/TP_PA/src/UI/gui/Images/Military_Fuel_System.png</file>
-        </group>
+        <group name="PA"/>
     </open-files>
 </project-private>

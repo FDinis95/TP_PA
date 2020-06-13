@@ -3,12 +3,14 @@ package Logica.estados;
 import Logica.InteracaoEsperada;
 import Logica.Jogo;
 import Logica.dados.FabricaEventos;
+import java.io.Serializable;
 
 
-public class WaitEvent extends StateAdapter {
+public class WaitEvent extends StateAdapter implements Serializable{
 
     public WaitEvent(Jogo jogo) {
         super(jogo);
+        
     }
 
     @Override
@@ -20,6 +22,7 @@ public class WaitEvent extends StateAdapter {
         
         getJogo().setEvento(FabricaEventos.criaEvento(valor));
         getJogo().getEvento().applyEvent(getJogo());
+        getJogo().getEvento().setID(valor);
         
         getJogo().getLog().addLog("Evento gerado aleatoriamente: " + getJogo().getEvento());
         getJogo().getLog().addLog("\n" + getJogo().getSpaceShip());
@@ -31,7 +34,6 @@ public class WaitEvent extends StateAdapter {
             getJogo().setGameOver();
             getJogo().getLog().addLog("\nInfelizmente ficaste sem Capitao ou sem Fuel! Perdeste!");
                 
-            getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
             
             getJogo().getLog().addLog("\n\n----- FIM EVENTO (GAMEOVER) -----\n\n");
@@ -44,8 +46,14 @@ public class WaitEvent extends StateAdapter {
             getJogo().getLog().addLog("\n----- FIM EVENTO -----\n");
             getJogo().getLog().clearLog();
             
-            return new WaitMove(getJogo()); 
+            return new WaitEvent(getJogo()); 
         }
+    }
+    
+    public Estado continua(){
+        
+        return new WaitMove(getJogo());
+        
     }
     
     //Feito manualmente
@@ -66,7 +74,6 @@ public class WaitEvent extends StateAdapter {
 
                 
             getJogo().getLog().addLog("\n\n----- FIM EVENTO (GAMEOVER) -----\n\n");
-            getJogo().getLog().printLogs();
             getJogo().getLog().clearLog();
             
             

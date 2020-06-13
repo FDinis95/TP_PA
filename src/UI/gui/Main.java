@@ -13,8 +13,8 @@ public class Main extends Application {
 
         MaquinaEstados maquina = new MaquinaEstados();
         ObservableGame ob = new ObservableGame(maquina);
-
-        Scene scene = new Scene(new Root(ob), 1200, 700);
+        
+        Scene scene = new Scene(new Root(ob), 1400, 900);
         
         primaryStage.setTitle("PlanetBound");
         primaryStage.setScene(scene);

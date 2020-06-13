@@ -1,8 +1,9 @@
 package Logica.dados.variations;
 
 import Logica.dados.Resource;
+import java.io.Serializable;
 
-public class ResourceVerde extends Resource {
+public class ResourceVerde extends Resource implements Serializable{
 
     public ResourceVerde() {
         setTipo("Verde");

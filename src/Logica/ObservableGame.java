@@ -1,12 +1,12 @@
 package Logica;
 
 import Logica.dados.Planet;
-import Logica.dados.SpaceShip;
+import Logica.dados.Terreno;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 
-public class ObservableGame {
+public class ObservableGame{
 
     private MaquinaEstados maquina;
     private PropertyChangeSupport propertyChangeSupport;
@@ -20,6 +20,16 @@ public class ObservableGame {
     public void addPropertyChangeListener(PropertyChangeListener listener){
         propertyChangeSupport.addPropertyChangeListener(listener);
         
+    }
+    
+    public MaquinaEstados getMaquina(){
+        return maquina;
+    }
+    
+    public void setMaquina(MaquinaEstados m){
+        this.maquina = m;
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);        
     }
     
     public void setup(){
@@ -37,6 +47,13 @@ public class ObservableGame {
     
     public void move(){
         this.maquina.move();
+        
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);
+    }
+    
+    public void move(int m, int s, int p){
+        this.maquina.move(m, s, p);
         
         
         propertyChangeSupport.firePropertyChange(null, null, null);
@@ -78,18 +95,46 @@ public class ObservableGame {
         propertyChangeSupport.firePropertyChange(null, null, null);
     }
     
-    
-    //TALVEZ??
-    public void setSpaceShip(SpaceShip sp){
-        this.maquina.getJogo().setSpaceShip(sp);
+    public void rollD6(){
+        this.maquina.rollD6();
         
         propertyChangeSupport.firePropertyChange(null, null, null);
     }
     
-    public void setPlaneta(Planet p){
-        this.maquina.getJogo().setPlaneta(p);
+    public void rollD6(int id){
+        this.maquina.rollD6(id);
         
         propertyChangeSupport.firePropertyChange(null, null, null);
+    }
+    
+    public void continua(){
+        this.maquina.continua();
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);
+    }
+
+    public void moveToResource(int moveX, int moveY){
+        this.maquina.moveToResource(moveX, moveY);
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);
+    }
+    
+    public void alienAttack(){
+        this.maquina.alienAttack();
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);
+    }
+    
+    public void hasResource(){
+        this.maquina.hasResource();
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);        
+    }
+    
+    public void newGame(){
+        this.maquina.newGame();
+        
+        propertyChangeSupport.firePropertyChange(null, null, null);        
     }
     
     //Funções de Consulta (Será que é para meter todas???)
@@ -127,8 +172,23 @@ public class ObservableGame {
         
     }
     
+    public int getVisitas(){
+        return this.maquina.getJogo().getSpaceShip().getNumberVisits();
+        
+    }
+    
     public Jogo getJogo(){
         return this.maquina.getJogo();
+        
+    }
+    
+    public Planet getPlaneta(){
+        return this.maquina.getJogo().getPlaneta();
+        
+    }
+    
+    public Terreno getTerreno(){
+        return this.maquina.getJogo().getPlaneta().getTerreno();
         
     }
     

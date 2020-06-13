@@ -1,8 +1,9 @@
 package Logica.dados;
 
 import Logica.Jogo;
+import java.io.Serializable;
 
-public abstract class Events {
+public abstract class Events implements Serializable{
     
     private int ID;
     public void applyEvent(Jogo game){  }

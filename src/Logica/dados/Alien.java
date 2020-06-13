@@ -1,6 +1,8 @@
 package Logica.dados;
 
-public abstract class Alien {
+import java.io.Serializable;
+
+public abstract class Alien implements Serializable{
     
     private String tipo; //[preto, azul, verde, vermelho]
     private int vida;
