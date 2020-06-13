@@ -26,7 +26,6 @@ public class Imagens {
         imagens.put(Constants.CARGO_CREW, new Image(Resources.getImageResourceFile(Constants.CARGO_CREW)));
         imagens.put(Constants.EVENTS, new Image(Resources.getImageResourceFile(Constants.EVENTS)));
         imagens.put(Constants.REFERENCE_CARD, new Image(Resources.getImageResourceFile(Constants.REFERENCE_CARD)));
-        imagens.put(Constants.TERRAIN, new Image(Resources.getImageResourceFile(Constants.TERRAIN)));
         imagens.put(Constants.DIE1, new Image(Resources.getImageResourceFile(Constants.DIE1)));
         imagens.put(Constants.DIE2, new Image(Resources.getImageResourceFile(Constants.DIE2)));
         imagens.put(Constants.DIE3, new Image(Resources.getImageResourceFile(Constants.DIE3)));

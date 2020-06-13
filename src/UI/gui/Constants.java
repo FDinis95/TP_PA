@@ -19,7 +19,6 @@ public interface Constants {
     public final String WEAPON_CREW = "Images\\weapons.png";
     public final String EVENTS = "Images\\EventsCard.png";
     public final String REFERENCE_CARD = "Images\\Reference_Card.png";
-    public final String TERRAIN = "Images\\Terrain.png";
     public final String DIE1 = "Images\\Dice\\die1.png";
     public final String DIE2 = "Images\\Dice\\die2.png";
     public final String DIE3 = "Images\\Dice\\die3.png";

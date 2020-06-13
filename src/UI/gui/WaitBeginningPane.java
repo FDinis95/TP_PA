@@ -66,15 +66,15 @@ public class WaitBeginningPane extends BorderPane {
         //Handle do botão Start
         start.setOnAction((ActionEvent event) -> {
 
-//            Timeline timeline = new Timeline();
-//            timeline.getKeyFrames().add(
-//                    new KeyFrame(Duration.seconds(3), (ActionEvent event1) -> {
-//                        
+            Timeline timeline = new Timeline();
+            timeline.getKeyFrames().add(
+                    new KeyFrame(Duration.seconds(3), (ActionEvent event1) -> {
+                        
                         modeloObs.setup();
-//                    }));
-//            timeline.playFromStart();
-//            moveRocket(spaceShip);
-////
+                    }));
+            timeline.playFromStart();
+            moveRocket(spaceShip);
+
         });
         
         //Handle do botão Exit
