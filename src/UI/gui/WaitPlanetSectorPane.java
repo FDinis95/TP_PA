@@ -35,6 +35,7 @@ public class WaitPlanetSectorPane extends BorderPane {
     private Button entrarSpaceStation = new Button("Entrar na Space Station");
     private Button usarRecursos = new Button("Usar Recursos");
     private Button nextTurn = new Button("Next turn");
+    private Button artifactAt5 = new Button("Artifacts a 5?");
     
     //SPACESHIP INFO STUFF
     private Label fuel = new Label();
@@ -122,16 +123,21 @@ public class WaitPlanetSectorPane extends BorderPane {
             modeloObs.nextTurn();
 
         });
+        
+        artifactAt5.setOnAction((event) -> {
+            modeloObs.getJogo().getSpaceShip().setArtifacts(5);
+            
+        });
 
         buttonPane.setAlignment(Pos.CENTER);
         buttonPane.setSpacing(20);
         buttonPane.setPrefSize(100, 200);
 
         if (modeloObs.getJogo().getPlaneta().getSpaceStation() != null) {
-            buttonPane.getChildren().addAll(entrarPlaneta, entrarSpaceStation, usarRecursos, nextTurn);
+            buttonPane.getChildren().addAll(entrarPlaneta, entrarSpaceStation, usarRecursos, nextTurn, artifactAt5);
 
         } else {
-            buttonPane.getChildren().addAll(entrarPlaneta, usarRecursos, nextTurn);
+            buttonPane.getChildren().addAll(entrarPlaneta, usarRecursos, nextTurn, artifactAt5);
         }
 
         setBottom(buttonPane);
@@ -858,10 +864,10 @@ public class WaitPlanetSectorPane extends BorderPane {
         }
 
         if (modeloObs.getJogo().getPlaneta().getSpaceStation() != null) {
-            buttonPane.getChildren().setAll(entrarPlaneta, entrarSpaceStation, usarRecursos, nextTurn);
+            buttonPane.getChildren().setAll(entrarPlaneta, entrarSpaceStation, usarRecursos, nextTurn, artifactAt5);
 
         } else {
-            buttonPane.getChildren().setAll(entrarPlaneta, usarRecursos, nextTurn);
+            buttonPane.getChildren().setAll(entrarPlaneta, usarRecursos, nextTurn, artifactAt5);
             
         }
 
