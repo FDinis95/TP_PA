@@ -428,7 +428,9 @@ public class WaitLandingPane extends BorderPane{
     private void atualizaVista() {
         InteracaoEsperada ie = modeloObs.getInteracaoEsperada();
         setVisible(ie == InteracaoEsperada.INTERACAO_WAIT_LANDING);
-                
+        
+        //DEBUG
+        System.out.println(count);
         //PLANETA INFO STUFF
         if (count < 6) {
             switch (modeloObs.getPlaneta().getTipo()) {
@@ -612,6 +614,7 @@ public class WaitLandingPane extends BorderPane{
         }       
         
         if (modeloObs.getTerreno().checkFight()) {
+            //FAZER UM BOTAO!
             modeloObs.alienAttack();
 
             if (modeloObs.getTerreno().getDrone().getVida() == 0) {
